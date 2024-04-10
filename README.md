@@ -2,7 +2,7 @@
 
 ## About
 
-This is a fork repo for the new electron app
+This is a fork repo for the new electron app.
 
 Software designed for comparing Wikipedia articles in different languages in order to determine what information is missing from one article, but present in another. The goal is for everyone to have the same access to information no matter what language they speak. This is just one small step in eliminating the digital divide. 
 
