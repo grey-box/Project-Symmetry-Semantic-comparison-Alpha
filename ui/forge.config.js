@@ -10,8 +10,8 @@ module.exports = {
       name: '@electron-forge/publisher-github',
       config: {
         repository: {
-          owner: 'elfarsif',
-          name: 'symmetry'
+          owner: 'frankfarsi',
+          name: 'project-symmetry-semantic-comparison-alpha'
         },
         prerelease: false,
         draft: true

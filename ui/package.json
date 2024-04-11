@@ -1,6 +1,6 @@
 {
   "name": "ui",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "Electron flask Wikipedia ai app",
   "main": "main.js",
   "scripts": {
