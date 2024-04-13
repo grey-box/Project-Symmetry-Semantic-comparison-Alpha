@@ -12,16 +12,17 @@ def get_article(url):
     # 1.get the french article
     try:
         article=scrape.getArticle(url)
-        return article
     except Exception as e:
         return make_response({"Error getting original article":str(e)},404)
     
     # 2.get the english version of that article
-    # try:
-    #     article['secondLanguage']=scrape.getArticle("https://en.wikipedia.org/wiki/Water_scarcity")
 
-    # except Exception as e: 
-    #     return make_response({"Error getting 2nd language article":str(e)},404)
+    try:
+        article['secondLanguage']=scrape.getArticle("https://en.wikipedia.org/wiki/Water_scarcity")
+        return article
+
+    except Exception as e: 
+        return make_response({"Error getting 2nd language article":str(e)},404)
 
     # try:
     #     translatedArticle=translation.translate("fr",article['secondLanguage']['text'],"Google translate","")
