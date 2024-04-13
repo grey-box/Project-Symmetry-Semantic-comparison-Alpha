@@ -8,7 +8,8 @@ article_route = Blueprint('product_route', __name__,url_prefix="/test")
 def get_article():
     data=request.get_json()
     url=data.get('url')
-    return {"message":"post request test"}
+#   return {"message":"post request test"}
+    return articleService.get_article(url)
     
 
 

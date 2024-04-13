@@ -15,5 +15,3 @@ def test_get_article(client):
     response = client.post('/test', json=data)
     assert response.status_code == 200
     assert response.is_json
-    json_response = response.get_json()
-    assert json_response == {"message":"post request test"}
