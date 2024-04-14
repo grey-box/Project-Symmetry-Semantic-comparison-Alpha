@@ -33,6 +33,8 @@ Aidan Hayes, Joseph LaBianca
 def compare(source, target, colors, similarity=0.1):
     source_pair_dict = dict()
     target_pair_dict = dict()
+    source_list = sent_tokenize(source)
+
 
     return source_pair_dict, target_pair_dict
 
