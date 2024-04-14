@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flaskr.scripts package &mdash; Symmetry Documentation 1.0.0 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="flaskr.services package" href="flaskr.services.html" />
+    <link rel="prev" title="flaskr.controllers package" href="flaskr.controllers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Symmetry Documentation 1.0.0
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">api</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="flaskr.html">flaskr package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="flaskr.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="flaskr.controllers.html">flaskr.controllers package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">flaskr.scripts package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flaskr.services.html">flaskr.services package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flaskr.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flaskr.html#module-flaskr.app">flaskr.app module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flaskr.html#module-flaskr">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">test package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Symmetry Documentation 1.0.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">api</a></li>
+          <li class="breadcrumb-item"><a href="flaskr.html">flaskr package</a></li>
+      <li class="breadcrumb-item active">flaskr.scripts package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/flaskr.scripts.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flaskr-scripts-package">
+<h1>flaskr.scripts package<a class="headerlink" href="#flaskr-scripts-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-flaskr.scripts.bleuScore">
+<span id="flaskr-scripts-bleuscore-module"></span><h2>flaskr.scripts.bleuScore module<a class="headerlink" href="#module-flaskr.scripts.bleuScore" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskr.scripts.bleuScore.compare">
+<span class="sig-prename descclassname"><span class="pre">flaskr.scripts.bleuScore.</span></span><span class="sig-name descname"><span class="pre">compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskr/scripts/bleuScore.html#compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskr.scripts.bleuScore.compare" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-flaskr.scripts.colors">
+<span id="flaskr-scripts-colors-module"></span><h2>flaskr.scripts.colors module<a class="headerlink" href="#module-flaskr.scripts.colors" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskr.scripts.colors.gen_colors">
+<span class="sig-prename descclassname"><span class="pre">flaskr.scripts.colors.</span></span><span class="sig-name descname"><span class="pre">gen_colors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskr/scripts/colors.html#gen_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskr.scripts.colors.gen_colors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-flaskr.scripts.scrape">
+<span id="flaskr-scripts-scrape-module"></span><h2>flaskr.scripts.scrape module<a class="headerlink" href="#module-flaskr.scripts.scrape" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskr.scripts.scrape.getArticle">
+<span class="sig-prename descclassname"><span class="pre">flaskr.scripts.scrape.</span></span><span class="sig-name descname"><span class="pre">getArticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskr/scripts/scrape.html#getArticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskr.scripts.scrape.getArticle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskr.scripts.scrape.languageGetter">
+<span class="sig-prename descclassname"><span class="pre">flaskr.scripts.scrape.</span></span><span class="sig-name descname"><span class="pre">languageGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wikiLink</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskr/scripts/scrape.html#languageGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskr.scripts.scrape.languageGetter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-flaskr.scripts.translation">
+<span id="flaskr-scripts-translation-module"></span><h2>flaskr.scripts.translation module<a class="headerlink" href="#module-flaskr.scripts.translation" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="flaskr.scripts.translation.deeplLangs">
+<span class="sig-prename descclassname"><span class="pre">flaskr.scripts.translation.</span></span><span class="sig-name descname"><span class="pre">deeplLangs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['BG',</span> <span class="pre">'CS',</span> <span class="pre">'DA',</span> <span class="pre">'DE',</span> <span class="pre">'EL',</span> <span class="pre">'EN',</span> <span class="pre">'EN-GB',</span> <span class="pre">'EN-US',</span> <span class="pre">'ES',</span> <span class="pre">'ET',</span> <span class="pre">'FI',</span> <span class="pre">'FR',</span> <span class="pre">'HU',</span> <span class="pre">'ID',</span> <span class="pre">'IT',</span> <span class="pre">'JA',</span> <span class="pre">'KO',</span> <span class="pre">'LT',</span> <span class="pre">'LV',</span> <span class="pre">'NB',</span> <span class="pre">'NL',</span> <span class="pre">'PL',</span> <span class="pre">'PT',</span> <span class="pre">'PT-BR',</span> <span class="pre">'PT-PT',</span> <span class="pre">'RO',</span> <span class="pre">'RU',</span> <span class="pre">'SK',</span> <span class="pre">'SL',</span> <span class="pre">'SV',</span> <span class="pre">'TR',</span> <span class="pre">'UK',</span> <span class="pre">'ZH']</span></em><a class="headerlink" href="#flaskr.scripts.translation.deeplLangs" title="Link to this definition"></a></dt>
+<dd><p>“BG” : ‘bg’,
+“CS” : ‘cs’,
+“DA” : ‘da’,
+“DE” : ‘de’,
+“EL” : ‘el’,
+“EN” : English,
+“EN-GB” : English (British),
+“EN-US” : English (American),
+“ES” : Spanish,
+“ET” : Estonian,
+“FI” : Finnish,
+“FR” : French,
+“HU” : Hungarian,
+“ID” : Indonesian,
+“IT” : Italian,
+“JA” : Japanese,
+“KO” : Korean,
+“LT” : Lithuanian,
+“LV” : Latvian,
+“NB” : Norwegian (Bokmål),
+“NL” : Dutch,
+“PL” : Polish,
+“PT” : Portuguese (unspecified variant for backward compatibility; please select PT-BR or PT-PT instead),
+PT-“BR” : Portuguese (Brazilian),
+PT-“PT” : Portuguese (all Portuguese varieties excluding Brazilian Portuguese),
+“RO” : Romanian,
+“RU” : Russian,
+“SK” : Slovak,
+“SL” : Slovenian,
+“SV” : Swedish,
+“TR” : Turkish,
+“UK” : Ukrainian,
+“ZH” : Chinese (simplified),
+}</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaskr.scripts.translation.translate">
+<span class="sig-prename descclassname"><span class="pre">flaskr.scripts.translation.</span></span><span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate_tool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deepl_api_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flaskr/scripts/translation.html#translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flaskr.scripts.translation.translate" title="Link to this definition"></a></dt>
+<dd><p>text1_sent = sent_tokenize(text1)[0]</p>
+<p>goog = str(google_trans.detect(text1_sent).lang).upper()
+if goog == ‘EN’: #here since some language have different versions like english and british english we had to make sure that is always US english</p>
+<blockquote>
+<div><p>goog = goog + ‘-US’</p>
+</div></blockquote>
+<dl class="simple">
+<dt>if goog == ‘PT’: #same goes for portuguese </dt><dd><p>goog = goog + ‘-BR’</p>
+</dd>
+</dl>
+<p># goog is the name of the language that we are changing right box into
+goog = ‘EN-US’</p>
+</dd></dl>
+
+</section>
+<section id="module-flaskr.scripts">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-flaskr.scripts" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="flaskr.controllers.html" class="btn btn-neutral float-left" title="flaskr.controllers package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="flaskr.services.html" class="btn btn-neutral float-right" title="flaskr.services package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Grey-Box.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
