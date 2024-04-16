@@ -58,7 +58,6 @@ const TranslationSection = () => {
 			console.log("Response from Flask:", data);
 		})
 		.catch(error => console.log(error));
-
 		console.log('put api call here')
 	}
 
