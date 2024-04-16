@@ -54,7 +54,11 @@ pyinstaller -F app.py
 ```
 6.Navigate to ui folder and run app
 ```bash
+
 cd ../../ui
+deactivate
+npm install
 npm run start
+
 ```
 
