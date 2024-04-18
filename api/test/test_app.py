@@ -15,3 +15,19 @@ def test_get_article(client):
     response = client.post('/test', json=data)
     assert response.status_code == 200
     assert response.is_json
+
+def test_get_original_article(client):
+    """
+    Test case for getting the original article.
+
+    Args:
+        client: The test client for making requests.
+
+    Returns:
+        None
+    """
+    data = {'url': 'https://en.wikipedia.org/wiki/Water_scarcity'}
+    response = client.post('/test/originalArticle', json=data)
+    assert response.status_code == 200
+    assert response.is_json
+

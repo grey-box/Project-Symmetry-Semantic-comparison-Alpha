@@ -1,10 +1,19 @@
 from flask import make_response
 from flaskr.scripts import scrape,translation,bleuScore,colors
+from flaskr.models.articleModel import ArticleModel
 import json
+
+def get_original_article(article:ArticleModel):
+    try:
+        article.set_original_article(scrape.getArticle(article.get_article_url()))
+        return article.get_original_article()
+    except Exception as e:
+        return make_response({"Error getting original article":str(e)},404)
+
+
 
 def get_article(url):
 
-    
     
     # 3.translate the english article to french
     # 4.compare the differences between the original french article and english translated to french article

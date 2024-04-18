@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    flaskr.controllers
+   flaskr.models
    flaskr.scripts
    flaskr.services
 

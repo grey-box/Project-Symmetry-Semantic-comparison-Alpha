@@ -62,3 +62,19 @@ npm run start
 
 ```
 
+### Generating docs
+
+1. Delete all the rst files in the docs folder, other than modules.rst and index.rst
+
+2. Generate new rst files
+
+```bash
+cd api
+sphinx-apidoc -o docs .
+```
+
+3. Use make.bat file to generate html
+
+```bash
+cd docs
+./make.bat html
