@@ -28,11 +28,11 @@ function createWindow(): void {
 
   let backendPath
   if (app.isPackaged) {
-    backendPath = path.join(process.resourcesPath, 'app.exe')
+    backendPath = path.join(process.resourcesPath, 'app')
   } else {
     backendPath = path.join(process.cwd(), '../api/flaskr/dist/app.exe')
   }
-  let backendProcess = execFile(backendPath, (error, stdout, stderr) => {
+  execFile(backendPath, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`)
       return
