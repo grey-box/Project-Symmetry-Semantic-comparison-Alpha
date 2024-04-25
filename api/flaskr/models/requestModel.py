@@ -3,7 +3,8 @@ class RequestModel:
         self,
         sourceArticleUrl: str,
         targetArticleLanguage: str,
-        translationTool: str,
+        ## TODO: Set as enum
+        translationTool: str,  # Be enum
         deepLApiKey: str,
     ):
         self._sourceArticleUrl = sourceArticleUrl
@@ -37,4 +38,3 @@ class RequestModel:
 
     def __str__(self) -> str:
         return f"RequestModel(sourceArticleUrl={self._sourceArticleUrl}, targetArticleLanguage={self._targetArticleLanguage}, translationTool={self._translationTool}, deepLApiKey={self._deepLApiKey})"
-
