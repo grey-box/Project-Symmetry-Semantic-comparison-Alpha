@@ -14,7 +14,11 @@ def get_translated_article(translateArticleRequestObject: RequestModel) -> dict:
 
 
 def fetch_source_article(requestModel: RequestModel):
-    return "sourceArticle"
+    try:
+        sourceArticle = scrape.getArticle(requestModel.get_sourceArticleUrl())
+    except Exception as e:
+        return make_response({"Error getting sourceArticle": str(e)}, 404)
+    return sourceArticle
 
 
 def fetch_target_article(requestModel: RequestModel):
