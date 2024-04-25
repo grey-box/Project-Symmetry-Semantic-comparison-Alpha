@@ -1,20 +1,7 @@
 class ArticleModel:
-    def __init__(self, articleUrl, originalArticle, targetArticle):
-        self.articleUrl = articleUrl
-        self.originalArticle = originalArticle
+    def __init__(self, sourceArticle, targetArticle):
+        self.sourceArticle = sourceArticle
         self.targetArticle = targetArticle
-
-    def get_article_url(self):
-        return self.articleUrl
-
-    def set_article_url(self, articleUrl):
-        self.articleUrl = articleUrl
-
-    def get_original_article(self):
-        return self.originalArticle
-
-    def set_original_article(self, originalArticle):
-        self.originalArticle = originalArticle
 
     def get_target_article(self):
         return self.targetArticle
@@ -22,7 +9,17 @@ class ArticleModel:
     def set_target_article(self, targetArticle):
         self.targetArticle = targetArticle
 
-    def __str__(self):
-        return (
-            f"Article URL: {self.articleUrl}\nOriginal Article: {self.originalArticle}"
-        )
+    def get_source_article(self):
+        return self.sourceArticle
+
+    def set_source_article(self, sourceArticle):
+        self.sourceArticle = sourceArticle
+
+    def __str__(self) -> str:
+        return f"ArticleModel(sourceArticle={self.sourceArticle},targetArticle={self.targetArticle})"
+
+    def toJson(self):
+        return {
+            "sourceArticle": self.sourceArticle,
+            "targetArticle": self.targetArticle
+        }

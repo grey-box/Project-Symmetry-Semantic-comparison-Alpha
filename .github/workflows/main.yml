@@ -21,7 +21,7 @@ jobs:
           python -m nltk.downloader punkt
 
       - name: Run Pytest
-        run: pytest
+        run: python -m pytest
       
       - name: Install PyInstaller
         run: pip install pyinstaller
