@@ -27,6 +27,6 @@ def test_translate_controller_translate_article(client):
         "translationTool": "google",
         "deepLApiKey": "apiKey",
     }
-    response = client.post("/translateArticle", json=data)
+    response = client.post("/translate/sourceAndTarget", json=data)
     assert response.status_code == 200
     assert response.is_json
