@@ -5,8 +5,8 @@
 <h1 align="center">Symmetery - Cross-language Wikipedia article gap analysis tool</h1>
 
 <p align="center">
-  <img alt="Alacritty - A fast, cross-platform, OpenGL terminal emulator"
-       src="extra/promo/alacritty-readme.png">
+  <img alt="Symmetery - Cross-language Wikipedia article gap analysis tool"
+       src="extras/symmetrydemo.png">
 </p>
 
 ## About
