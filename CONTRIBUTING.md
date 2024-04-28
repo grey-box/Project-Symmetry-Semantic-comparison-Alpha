@@ -17,11 +17,11 @@ Table of Contents:
 ## Feature Requests
 
 Feature requests should be reported in the
-[Symmetry issue tracker](https://github.com/alacritty/alacritty/issues). To reduce the number of
+[Symmetry issue tracker](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/issues). To reduce the number of
 duplicates, please make sure to check the existing
-[enhancement](https://github.com/alacritty/alacritty/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aenhancement)
+[enhancement](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aenhancement)
 and
-[missing feature](https://github.com/alacritty/alacritty/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22B+-+missing+feature%22)
+[missing feature](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22B+-+missing+feature%22)
 issues.
 
 ## Bug Reports
