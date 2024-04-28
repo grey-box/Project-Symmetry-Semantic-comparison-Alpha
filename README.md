@@ -1,4 +1,16 @@
-# Project Symmetry
+<p align="center">
+    <img width="200" alt="Alacritty Logo" src="https://www.grey-box.ca/wp-content/uploads/2018/05/logoGREY-BOX.jpg">
+</p>
+
+<h1 align="center">Symmetery - Cross-language Wikipedia article gap analysis tool</h1>
+
+<p align="center">
+  <img alt="Alacritty - A fast, cross-platform, OpenGL terminal emulator"
+       src="extra/promo/alacritty-readme.png">
+</p>
+
+## About
+
 
 ## Description
 
