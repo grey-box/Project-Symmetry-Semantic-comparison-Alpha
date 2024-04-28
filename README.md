@@ -11,18 +11,41 @@
 
 ## About
 
+Symmetry is a Tool to help lets add words here By integrating with other
+applications, seguay into , it manages to
+provide a flexible set of [features](./docs/features.md) with high performance.
+The supported platforms currently consist of BSD, Linux, macOS and Windows.
 
-## Description
+The software is considered to be at a **beta** level of readiness; there are
+a few missing features and bugs to be fixed, but it is already used by many as
+a daily driver.
 
-This app is an Electron-flask built as a redesign of the previous app. The goal is to merge this fork into the main repo once all functionalities work.
-
-The ui folder is temporary until integration with the next app is made. Red team can build and test in the next folder and model the functionalies by looking at the ui folder
+Precompiled binaries are available from the [GitHub releases page](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/releases).
 
 ## Features
 
-- Electron framework for cross-platform desktop app development
-- Integration with Flask for backend operations
-- AI functionalities to enhance interaction with Wikipedia
+You can find an overview over the features available in Symmetry [here](./docs/features.md).
+
+## Installation
+
+Symmetry can be installed by using various package managers on Linux, BSD,
+macOS and Windows.
+
+Prebuilt binaries for macOS and Windows can also be downloaded from the
+[GitHub releases page](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/releases).
+
+For everyone else, the detailed instructions to install Symmetry can be found
+[here](INSTALL.md).
+
+### Requirements
+
+- At least OpenGL ES 2.0
+- [Windows] ConPTY support (Windows 10 version 1809 or higher)
+
+## Contributing
+
+A guideline about contributing to Symmetry can be found in the
+[`CONTRIBUTING.md`](CONTRIBUTING.md) file.
 
 ## Getting Started
 
