@@ -14,7 +14,9 @@ def get_list_of_target_article_languages():
     translateArticleRequestObject = initialize_request_object(request)
     if translateArticleRequestObject.get_targetArticleLanguage() == "":
         return make_response(
-            {"sourceArticle": "this is the article", "translationTool": ["en", "fr"]},
+            translateService.fetch_source_article_languages(
+                translateArticleRequestObject
+            ).toJson(),
             200,
         )
     return make_response(

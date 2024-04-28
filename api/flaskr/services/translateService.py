@@ -9,6 +9,7 @@ def get_translated_article(translateArticleRequestObject: RequestModel) -> dict:
     articleReturned = ArticleModel(
         fetch_source_article(translateArticleRequestObject),
         fetch_target_article(translateArticleRequestObject),
+        None,
     )
     return articleReturned.toJson()
 
@@ -23,3 +24,11 @@ def fetch_source_article(requestModel: RequestModel):
 
 def fetch_target_article(requestModel: RequestModel):
     return "targetArticle"
+
+
+def fetch_source_article_languages(request: RequestModel) -> ArticleModel:
+    return ArticleModel(
+        scrape.getArticle(request.get_sourceArticleUrl()),
+        "targetArticle",
+        scrape.languageGetter(request.get_sourceArticleUrl()),
+    )
