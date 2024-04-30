@@ -25,27 +25,31 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the repository to your local machine:
 
-```bash
+``
 git clone https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha.git
 ```
 
 2. Navigate to ui and install dependencies
-```bash
+
 cd ui
 npm install
 ```
 3. make python virtual env install pyinstaller
-```bash
+
 cd ../api
 python -m venv venv
 ```
 4. Activate python virtual env and install dependencies 
-```bash
+
 #this command demands on your os or terminal for linux/bash/(i think it works for mac too) its
+# Note: - If your OS is Windows 11, please use command ".\Activate.ps1" to activate you Python virtual environment
+#       - If you're not sure where to find or create the requirements.txt file, you can create it manually in your project directory or use a           tool or command like "pip freeze" to generate it automatically based on the packages installed in your current Python environment.
+# Run:   
 source venv/scripts/activate
 pip install -r requirements.txt
 pip install pyinstaller
 ```
+
 
 5. Use pyinstaller to build flask executable 
 ```bash
