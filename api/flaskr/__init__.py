@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flaskr.controllers.articleController import article_route
+from flaskr.controllers.translateController import translate_route
+
 
 def create_app():
     """
@@ -15,4 +17,5 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
     app.register_blueprint(article_route)
+    app.register_blueprint(translate_route)
     return app

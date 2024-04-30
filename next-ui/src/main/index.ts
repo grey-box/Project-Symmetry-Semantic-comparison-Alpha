@@ -2,6 +2,8 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { execFile } from 'child_process'
+import path from 'path'
 
 function createWindow(): void {
   // Create the browser window.
@@ -13,12 +15,30 @@ function createWindow(): void {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      nodeIntegration: true
     }
   })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+  })
+
+  mainWindow.loadFile('index.html')
+
+  let backendPath
+  if (app.isPackaged) {
+    backendPath = path.join(process.resourcesPath, 'app')
+  } else {
+    backendPath = path.join(process.cwd(), '../api/flaskr/dist/app.exe')
+  }
+  execFile(backendPath, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`)
+      return
+    }
+    console.log(`stdout: ${stdout}`)
+    console.error(`stderr: ${stderr}`)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -66,6 +86,16 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    const { exec } = require('child_process')
+    exec('taskkill /f /t /im app.exe', (err, stdout, stderr) => {
+      if (err) {
+        console.log(err)
+        return
+      }
+      console.log(`stdout: ${stdout}`)
+      console.log(`stderr: ${stderr}`)
+    })
+
     app.quit()
   }
 })

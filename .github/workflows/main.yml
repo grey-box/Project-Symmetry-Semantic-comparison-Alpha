@@ -1,9 +1,9 @@
-name: Github Actions Workflow
+name: Flask test suite
 run-name: ${{ github.actor }} is building symmetry 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+  Test_API_endpoints:
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,6 +21,12 @@ jobs:
           python -m nltk.downloader punkt
 
       - name: Run Pytest
-        run: pytest
+        run: python -m pytest
+      
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+      
+      - name: Build with PyInstaller
+        run: pyinstaller -F api/flaskr/app.py
 
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."

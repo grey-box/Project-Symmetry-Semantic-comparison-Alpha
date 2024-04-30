@@ -40,9 +40,31 @@ const TranslationSection = () => {
 		console.log(data);
 	}, []);
 
+	const callApiTest=()=>{
+		const url = 'http://127.0.0.1:5000/test';
+		const urlToSend = 'https://fr.wikipedia.org/wiki/Stress_hydrique_(%C3%A9cologie)';
+		const data = {
+			url: urlToSend
+		};
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log("Response from Flask:", data);
+		})
+		.catch(error => console.log(error));
+		console.log('put api call here')
+	}
+
 	return (
 		<section className="bg-white mt-6 p-2 rounded-xl shadow-md h-full">
 			<Form {...form}>
+				<button onClick={()=>callApiTest()}>Test Api call</button>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
 
 					<div className="flex items-center justify-between">

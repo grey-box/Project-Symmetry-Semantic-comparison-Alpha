@@ -75,6 +75,7 @@
 <span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span>
 <span class="kn">from</span> <span class="nn">flaskr.services</span> <span class="kn">import</span> <span class="n">articleService</span>
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">flaskr.models.articleModel</span> <span class="kn">import</span> <span class="n">ArticleModel</span>
 
 <span class="n">article_route</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;product_route&#39;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">url_prefix</span><span class="o">=</span><span class="s2">&quot;/test&quot;</span><span class="p">)</span>
 
@@ -84,10 +85,24 @@
 <span class="k">def</span> <span class="nf">get_article</span><span class="p">():</span>
     <span class="n">data</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
     <span class="n">url</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span>
-<span class="c1">#   return {&quot;message&quot;:&quot;post request test&quot;}</span>
     <span class="k">return</span> <span class="n">articleService</span><span class="o">.</span><span class="n">get_article</span><span class="p">(</span><span class="n">url</span><span class="p">)</span></div>
 
-    
+
+<div class="viewcode-block" id="get_original_article">
+<a class="viewcode-back" href="../../../flaskr.controllers.html#flaskr.controllers.articleController.get_original_article">[docs]</a>
+<span class="nd">@article_route</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/originalArticle&quot;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_original_article</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieves the original article based on the provided URL.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The original article.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">article</span> <span class="o">=</span> <span class="n">ArticleModel</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">),</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">articleService</span><span class="o">.</span><span class="n">get_original_article</span><span class="p">(</span><span class="n">article</span><span class="p">)</span></div>
+
+
+
 
 
 
