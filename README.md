@@ -2,7 +2,7 @@
     <img width="200" alt="Alacritty Logo" src="https://www.grey-box.ca/wp-content/uploads/2018/05/logoGREY-BOX.jpg">
 </p>
 
-<h1 align="center">Symmetery - Cross-language Wikipedia article gap analysis tool</h1>
+<h1 align="center">Symmetery - Cross-Language Wikipedia Article Gap Analysis Tool</h1>
 
 <p align="center">
   <img alt="Symmetery - Cross-language Wikipedia article gap analysis tool"
