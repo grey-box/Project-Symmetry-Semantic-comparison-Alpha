@@ -1,14 +1,17 @@
-import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import React, { useCallback, useState } from 'react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
-import { TranslationSettingsFormType } from '@/models/TranslationSettingsFormType'
+import React, { Fragment, useCallback, useState } from 'react'
+
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { TranslationTool } from '@/models/enums/TranslationTool'
+import { TranslationSettingsFormType } from '@/models/TranslationSettingsFormType'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useAppContext } from '@/context/AppContext'
 
 const Settings = () => {
   const [editMode, setEditMode] = useState(false)
+  const { setAPIKey, setTranslationTool } = useAppContext()
 
   const form = useForm<TranslationSettingsFormType>({
     defaultValues: {
@@ -23,38 +26,44 @@ const Settings = () => {
     reset,
   } = form
 
+  const onSubmit = useCallback((data: TranslationSettingsFormType) => {
+    setAPIKey(data.APIKey)
+    setTranslationTool(data.translationTool)
+    setEditMode(false)
+  }, [setTranslationTool, setAPIKey])
+
   const onCancel = useCallback(() => {
     reset()
     setEditMode(false)
+  }, [reset])
+
+  const onEditMode = useCallback(() => {
+    setEditMode(true)
   }, [])
 
   return (
-    <section className="bg-white mt-6 rounded-xl shadow-md p-3">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="font-semibold text-base">Translation</h2>
-          <p className="text-sm">Settings for translation</p>
-        </div>
-        <div className="gap-x-4 flex">
-          {
-            editMode ?
-              (
-                <>
-                  <Button type="submit">Save</Button>
-                  <Button variant="outline" onClick={onCancel}>
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <Button onClick={() => setEditMode(true)}>
-                  Edit
-                </Button>
-              )
-          }
-        </div>
-      </div>
-      <Form {...form}>
-        <form>
+    <Form {...form}>
+      <section className="bg-white mt-6 rounded-xl shadow-md p-3">
+        <form id="settings" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-semibold text-base">Translation</h2>
+              <p className="text-sm">Settings for translation</p>
+            </div>
+            <div className="gap-x-4 flex">
+              {
+                editMode ?
+                  (
+                    <Fragment>
+                      <Button type="button" onClick={handleSubmit(onSubmit)}>Save</Button>
+                      <Button variant="outline" onClick={onCancel}>Cancel</Button>
+                    </Fragment>
+                  ) : (
+                    <Button onClick={onEditMode} type="button">Edit</Button>
+                  )
+              }
+            </div>
+          </div>
           <div className="flex justify-between mt-5">
             <FormField
               disabled={!editMode}
@@ -71,7 +80,7 @@ const Settings = () => {
                       <SelectContent>
                         {
                           Object.values(TranslationTool).map(tool => (
-                            <SelectItem value={tool}>
+                            <SelectItem value={tool} key={tool}>
                               {tool}
                             </SelectItem>
                           ))
@@ -102,8 +111,8 @@ const Settings = () => {
             )}
           </div>
         </form>
-      </Form>
-    </section>
+      </section>
+    </Form>
   )
 }
 

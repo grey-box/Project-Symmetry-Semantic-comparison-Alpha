@@ -1,14 +1,17 @@
-import { useCallback, useState } from 'react'
-import { ChevronRight, Info } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { useForm } from 'react-hook-form'
-import { TranslationFormType } from '@/models/TranslationFormType'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { ChevronRight, Info } from 'lucide-react'
+import { useCallback, useState } from 'react'
+
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Separator } from '@/components/ui/separator'
-import { AppConstants } from '@/constants/AppContants'
+import { SelectData } from '@/models/SelectData'
+import { fetchArticle } from '@/services/fetchArticle'
+import { useAppContext } from '@/context/AppContext'
+import { TranslationFormType } from '@/models/TranslationFormType'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 
 const TRANSLATION_LANGUAGES = [
   { value: 'english', label: 'English' },
@@ -19,10 +22,8 @@ const TRANSLATION_LANGUAGES = [
 ]
 
 const TranslationSection = () => {
-  const [availableTranslationLanguages, setAvailableTranslationLanguages] = useState<{
-    value: string,
-    label: string
-  }[]>([])
+  const [availableTranslationLanguages, setAvailableTranslationLanguages] = useState<SelectData<string>[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const form = useForm<TranslationFormType>({
     defaultValues: {
       sourceArticleUrl: '',
@@ -31,43 +32,44 @@ const TranslationSection = () => {
       translatedArticleContent: '',
     },
   })
+  const { translationTool, APIKey } = useAppContext()
   const {
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
   } = form
 
-  const onSubmit = useCallback((data: TranslationFormType) => {
-    console.log(data)
-  }, [])
-
-  const callApiTest = () => {
-    const url = 'http://127.0.0.1:5000/test'
-    const urlToSend = 'https://fr.wikipedia.org/wiki/Stress_hydrique_(%C3%A9cologie)'
-    const data = {
-      url: urlToSend,
-    }
-    fetch(`${AppConstants.BACKEND_BASE_URL}/test`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Response from Flask:', data)
+  const onSubmit = useCallback(async (data: TranslationFormType) => {
+    try {
+      setIsLoading(true)
+      const response = await fetchArticle({
+        translationTool,
+        deepLApiKey: APIKey,
+        sourceArticleUrl: data.sourceArticleUrl,
+        targetLanguage: '',
       })
-      .catch(error => console.log(error))
-    console.log('put api call here')
-  }
+      setValue('sourceArticleContent', response.data.sourceArticle.text)
+      setAvailableTranslationLanguages(
+        Object.entries(response.data.articleLanguages).map(([key, value]) => ({
+          value,
+          label: key,
+        })))
+    } catch (error) {
+
+    } finally {
+      setIsLoading(false)
+    }
+  }, [setValue, translationTool, APIKey])
+
+  const onLanguageChange = useCallback(() => {
+
+  }, [])
 
   return (
     <section className="bg-white mt-6 rounded-xl shadow-md">
       <Form {...form}>
-        {/*<button onClick={() => callApiTest()}>Test Api call</button>*/}
         <form onSubmit={form.handleSubmit(onSubmit)}>
-
           <div className="flex items-center justify-between p-4">
             <div className="inline-flex items-center gap-x-2">
               <Info size={16} />
@@ -76,8 +78,8 @@ const TranslationSection = () => {
 							</span>
             </div>
             <div className="flex gap-x-2">
-              <Button variant="outline">Clear</Button>
-              <Button variant="default">Translate</Button>
+              <Button disabled={isLoading} variant="outline">Clear</Button>
+              <Button disabled={isLoading} variant="default">Translate</Button>
               <Button disabled className="flex gap-x-2">Compare <ChevronRight size={16} /></Button>
             </div>
           </div>
@@ -105,14 +107,18 @@ const TranslationSection = () => {
                 <FormItem className="w-2/5 flex items-center gap-x-4">
                   <FormLabel className="shrink-0">Target Article Language</FormLabel>
                   <FormControl>
-                    <Select {...field}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={field.disabled || isLoading}
+                    >
                       <SelectTrigger className="!mt-0">
                         <SelectValue placeholder="Language" />
                       </SelectTrigger>
                       <SelectContent>
                         {
                           availableTranslationLanguages.map(languageInfo => (
-                            <SelectItem value={languageInfo.value}>
+                            <SelectItem value={languageInfo.value} key={languageInfo.label}>
                               {languageInfo.label}
                             </SelectItem>
                           ))
@@ -135,14 +141,15 @@ const TranslationSection = () => {
                   <FormItem className="flex items-center gap-x-4 border-b mx-2">
                     <FormLabel className="shrink-0 sr-only">Content</FormLabel>
                     <FormControl>
-                      <Textarea className="border-0 resize-none" placeholder="Source article" {...field} rows={22} />
+                      <Textarea className="border-0 resize-none" readOnly placeholder="Source article" {...field}
+                                rows={22} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <span className="text-sm text-center inline-block w-full my-3">
-                Word Count <span className="font-bold">{watch('sourceArticleContent').length}</span>
+                Word Count <span className="font-bold">{watch('sourceArticleContent').split(' ').length}</span>
               </span>
             </div>
 
@@ -156,23 +163,24 @@ const TranslationSection = () => {
                   <FormItem className="flex items-center gap-x-4 border-b mx-2">
                     <FormLabel className="shrink-0 sr-only">Content</FormLabel>
                     <FormControl>
-                      <Textarea className="border-0 resize-none" placeholder="Translated article" {...field}
-                                rows={22} />
+                      <Textarea
+                        className="border-0 resize-none"
+                        readOnly
+                        placeholder="Translated article"
+                        {...field}
+                        rows={22} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <span className="text-sm text-center inline-block w-full my-3">
-                Word Count <span className="font-bold">{watch('translatedArticleContent').length}</span>
+                Word Count <span className="font-bold">{watch('translatedArticleContent').split(' ').length}</span>
               </span>
             </div>
           </div>
         </form>
       </Form>
-      <div>
-
-      </div>
     </section>
   )
 }

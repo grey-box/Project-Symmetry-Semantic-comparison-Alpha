@@ -1,18 +1,20 @@
-import { createContext, ReactNode, useContext } from 'react'
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react'
 import { TranslationTool } from '@/models/enums/TranslationTool'
 
 type AppContextType = {
   translationTool: TranslationTool;
   APIKey: string;
-  sourceArticleURL: string;
-  targetArticleLanguage: string;
+  setTranslationTool: Dispatch<SetStateAction<TranslationTool>>;
+  setAPIKey: Dispatch<SetStateAction<string>>;
 };
 
 const APP_CONTEXT_DEFAULT_VALUES: AppContextType = {
-  translationTool: TranslationTool.DEEPL,
+  translationTool: TranslationTool.GOOGLE,
   APIKey: '',
-  sourceArticleURL: '',
-  targetArticleLanguage: 'English',
+  setAPIKey: () => {
+  },
+  setTranslationTool: () => {
+  },
 }
 export const AppContext = createContext<AppContextType>(
   APP_CONTEXT_DEFAULT_VALUES,
@@ -24,14 +26,16 @@ type AppContextProviderProps = {
 
 export const AppContextProvider = (props: AppContextProviderProps) => {
   const { children } = props
+  const [translationTool, setTranslationTool] = useState()
+  const [APIKey, setAPIKey] = useState()
 
   return (
     <AppContext.Provider
       value={{
         APIKey: '',
-        sourceArticleURL: '',
-        targetArticleLanguage: '',
         translationTool: TranslationTool.GOOGLE,
+        setTranslationTool,
+        setAPIKey,
       }}
     >
       {children}
