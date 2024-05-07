@@ -30,9 +30,9 @@ const createWindow = () => {
   let backendPath = "";
 
   if (app.isPackaged) {
-    backendPath = path.join(process.resourcesPath, 'app')
+    backendPath = path.join(process.resourcesPath, 'pyapp')
   } else {
-    backendPath = path.join(process.cwd(), '../api/flaskr/dist/app')
+    backendPath = path.join(process.cwd(), '../api/flaskr/dist/pyapp')
   }
 
   execFile(backendPath, (error, stdout, stderr) => {
@@ -65,7 +65,7 @@ app.on('window-all-closed', () => {
     })
     app.quit()
   }
-  exec('taskkill /f /t /im app', (err, stdout, stderr) => {
+  exec('taskkill /f /t /im pyapp', (err, stdout, stderr) => {
     if (err) {
       console.log(err)
       return

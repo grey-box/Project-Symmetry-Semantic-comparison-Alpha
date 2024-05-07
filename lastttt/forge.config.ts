@@ -9,7 +9,7 @@ const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
     extraResource: [
-      '../api/flaskr/dist/app'
+      '../api/flaskr/dist/pyapp',
     ],
   },
   rebuildConfig: {},

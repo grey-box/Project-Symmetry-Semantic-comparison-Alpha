@@ -14,7 +14,7 @@ const TRANSLATION_LANGUAGES = [
   { value: 'english', label: 'English' },
   { value: 'french', label: 'French' },
   { value: 'hindi', label: 'Hindi' },
-  { value: 'arabic', label: 'Arabic' }
+  { value: 'arabic', label: 'Arabic' },
 
 ]
 
@@ -28,13 +28,13 @@ const TranslationSection = () => {
       sourceArticleUrl: '',
       targetArticleLanguage: 'English',
       sourceArticleContent: '',
-      translatedArticleContent: ''
-    }
+      translatedArticleContent: '',
+    },
   })
   const {
     handleSubmit,
     formState: { errors },
-    watch
+    watch,
   } = form
 
   const onSubmit = useCallback((data: TranslationFormType) => {
@@ -45,14 +45,14 @@ const TranslationSection = () => {
     const url = 'http://127.0.0.1:5000/test'
     const urlToSend = 'https://fr.wikipedia.org/wiki/Stress_hydrique_(%C3%A9cologie)'
     const data = {
-      url: urlToSend
+      url: urlToSend,
     }
     fetch(`${AppConstants.BACKEND_BASE_URL}/test`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {

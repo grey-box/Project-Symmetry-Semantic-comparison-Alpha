@@ -1,6 +1,9 @@
-import { render } from "solid-js/web";
-import App from "./App";
+import React from 'react'
+import App from './App'
+import ReactDOM from 'react-dom/client'
 
-const root = document.getElementById("root");
-
-render(() => <App />, root!);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)

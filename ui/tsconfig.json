@@ -12,11 +12,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true,
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
+    "jsx": "react-jsx",
     "paths": {
-      "*": [
-        "node_modules/*"
+      "@/*": [
+        "./src/*"
       ]
     }
   },

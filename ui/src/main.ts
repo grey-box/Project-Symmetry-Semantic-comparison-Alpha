@@ -1,6 +1,6 @@
-import { app, BrowserWindow } from "electron";
-import * as path from "path";
-const { exec, execFile } = require('child_process');
+import { app, BrowserWindow } from 'electron'
+import * as path from 'path'
+import { exec, execFile } from 'child_process'
 
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
@@ -19,7 +19,6 @@ const createWindow = () => {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
