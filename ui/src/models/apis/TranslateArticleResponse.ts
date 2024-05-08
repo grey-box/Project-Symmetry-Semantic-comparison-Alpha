@@ -1,3 +1,1 @@
-import { FetchArticleResponse } from '@/models/apis/FetchArticleResponse'
-
-export type TranslateArticleResponse = Pick<FetchArticleResponse, 'sourceArticle'>;
+export type TranslateArticleResponse = { text: string, title: string }

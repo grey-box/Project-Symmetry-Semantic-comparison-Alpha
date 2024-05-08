@@ -14,7 +14,7 @@ def getArticle(url):
     for paragraph in soup.find_all('p'):
         text += paragraph.text + " "  # Adding a space to keep words separate
     # Return both the title and the summary
-    return {"title": title, "text": text[0:200]}
+    return {"title": title, "text": text}
 
 
 def languageGetter (wikiLink):
@@ -52,7 +52,7 @@ def languageGetter (wikiLink):
         #print(linkies)
         #print(language)
         #print(link, end="\n"*2) # end always attaches the same thing to the ending of a print statement
-    
+
     return languageDict
 
 

@@ -67,7 +67,8 @@ const TranslationSection = () => {
     try {
       setIsLoading(true)
       const response = await translateArticle({ targetArticleUrl: translateArticleUrl })
-      setValue('translatedArticleContent', response.data.sourceArticle.text)
+      console.log(response.data.text)
+      setValue('translatedArticleContent', response.data.text)
     } catch (error) {
       console.log(error)
     } finally {
@@ -180,7 +181,6 @@ const TranslationSection = () => {
                     <FormControl>
                       <Textarea
                         className="border-0 resize-none"
-                        readOnly
                         placeholder="Translated article"
                         {...field}
                         rows={22} />

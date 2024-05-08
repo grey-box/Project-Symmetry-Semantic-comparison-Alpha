@@ -1,9 +1,9 @@
 {
-  "name": "roygbiv",
-  "productName": "roygbiv",
-  "version": "1.0.4",
-  "author": "Meee",
-  "description": "My Electron application description",
+  "name": "project_symmetry",
+  "productName": "symmetry",
+  "version": "1.0.5",
+  "author": "Gerybox",
+  "description": "Cross language wikipedia article gap analysis tool",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
