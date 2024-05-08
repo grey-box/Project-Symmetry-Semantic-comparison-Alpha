@@ -23,13 +23,21 @@ def get_list_of_target_article_languages():
         translateService.get_translated_article(translateArticleRequestObject), 200
     )
 
+@translate_route.route("/targetArticle", methods=["POST"])
+def get_target_article():
+     return make_response(
+        translateService.get_target_article(request.get_json().get("targetArticleUrl")),200
+        
+    )
+
+
 
 @translate_route.route("/settingsCheck", methods=["POST"])
 def get_source_article():
     initialized_request_object = initialize_request_object(request)
     return make_response({"message": "Settings are valid"}, 200)
 
-
+#TODO:Error handling for invalide requestObj
 def initialize_request_object(requestObj) -> RequestModel:
     initialized_request_object = RequestModel(
         requestObj.get_json().get("sourceArticleUrl"),
