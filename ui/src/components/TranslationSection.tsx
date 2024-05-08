@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator'
 import { SelectData } from '@/models/SelectData'
 import { fetchArticle } from '@/services/fetchArticle'
 import { useAppContext } from '@/context/AppContext'
+import { translateArticle } from '@/services/translateArticle'
 import { TranslationFormType } from '@/models/TranslationFormType'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -56,15 +57,23 @@ const TranslationSection = () => {
           label: key,
         })))
     } catch (error) {
-
+      console.log(error)
     } finally {
       setIsLoading(false)
     }
   }, [setValue, translationTool, APIKey])
 
-  const onLanguageChange = useCallback(() => {
-
-  }, [])
+  const onLanguageChange = useCallback(async (translateArticleUrl: string) => {
+    try {
+      setIsLoading(true)
+      const response = await translateArticle({ targetArticleUrl: translateArticleUrl })
+      setValue('translatedArticleContent', response.data.sourceArticle.text)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [setValue])
 
   return (
     <section className="bg-white mt-6 rounded-xl shadow-md">
@@ -78,8 +87,8 @@ const TranslationSection = () => {
 							</span>
             </div>
             <div className="flex gap-x-2">
-              <Button disabled={isLoading} variant="outline">Clear</Button>
-              <Button disabled={isLoading} variant="default">Translate</Button>
+              <Button disabled={isLoading} type="button" variant="outline">Clear</Button>
+              <Button disabled={isLoading} variant="default" type="submit">Translate</Button>
               <Button disabled className="flex gap-x-2">Compare <ChevronRight size={16} /></Button>
             </div>
           </div>
@@ -108,7 +117,10 @@ const TranslationSection = () => {
                   <FormLabel className="shrink-0">Target Article Language</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
+                      onValueChange={(value) => {
+                        field.onChange(value)
+                        onLanguageChange(value)
+                      }}
                       defaultValue={field.value}
                       disabled={field.disabled || isLoading}
                     >
@@ -118,7 +130,10 @@ const TranslationSection = () => {
                       <SelectContent>
                         {
                           availableTranslationLanguages.map(languageInfo => (
-                            <SelectItem value={languageInfo.value} key={languageInfo.label}>
+                            <SelectItem
+                              value={languageInfo.value}
+                              key={languageInfo.label}
+                            >
                               {languageInfo.label}
                             </SelectItem>
                           ))
