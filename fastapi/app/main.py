@@ -8,6 +8,7 @@ from app.scripts import scrape
 
 app = FastAPI()
 
+
 @app.post("/api/v1/article/original")
 def get_orginal_article_by_url():
     return scrape.getArticle("https://en.wikipedia.org/wiki/Water_scarcity")
