@@ -2,15 +2,16 @@ from fastapi import FastAPI
 from uvicorn import run
 from typing import Union
 import uvicorn
+from pydantic import BaseModel
 
-from fastapi.testclient import TestClient
 from app.scripts import scrape
 
 app = FastAPI()
 
-
-@app.post("/api/v1/article/original")
-def get_orginal_article_by_url():
+class Url(BaseModel):
+    add:str
+@app.post("/api/v1/article/original/")
+def get_orginal_article_by_url(url:Url):
     return scrape.getArticle("https://en.wikipedia.org/wiki/Water_scarcity")
 
 @app.post("/api/v1/article/original/languages")
