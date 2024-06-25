@@ -32,3 +32,7 @@ def fetch_source_article_languages(request: RequestModel) -> ArticleModel:
         "targetArticle",
         scrape.languageGetter(request.get_sourceArticleUrl()),
     )
+
+def get_target_article(targetArticleUrl:str):
+     return scrape.getArticle(targetArticleUrl)
+    

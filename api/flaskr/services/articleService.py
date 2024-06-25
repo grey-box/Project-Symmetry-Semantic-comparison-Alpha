@@ -2,35 +2,37 @@ from flask import make_response
 from flaskr.scripts import scrape, translation, bleuScore, colors
 from flaskr.models.articleModel import ArticleModel
 import json
+from flaskr.models.requestModel import RequestModel
 
 
-def get_article(url):
-    # 3.translate the english article to french
-    # 4.compare the differences between the original french article and english translated to french article
+def get_translated_article(translateArticleRequestObject: RequestModel) -> dict:
+    articleReturned = ArticleModel(
+        fetch_source_article(translateArticleRequestObject),
+        fetch_target_article(translateArticleRequestObject),
+        None,
+    )
+    return articleReturned.toJson()
 
-    # 1.get the french article
+
+def fetch_source_article(requestModel: RequestModel):
     try:
-        article = scrape.getArticle(url)
+        sourceArticle = scrape.getArticle(requestModel.get_sourceArticleUrl())
     except Exception as e:
-        return make_response({"Error getting original article": str(e)}, 404)
-    # 2.get the english version of that article
-    try:
-        article["secondLanguage"] = scrape.getArticle(
-            "https://en.wikipedia.org/wiki/Water_scarcity"
-        )
+        return make_response({"Error getting sourceArticle": str(e)}, 404)
+    return sourceArticle
 
-    except Exception as e:
-        return make_response({"Error getting 2nd language article": str(e)}, 404)
 
-    try:
-        translatedArticle = translation.translate(
-            "fr", article["secondLanguage"]["text"], "Google translate", ""
-        )
-        article["translatedSecondLanguage"] = translatedArticle
-        colorsGenerated = colors.gen_colors()
-        article["comparisonInfo"] = bleuScore.compare(
-            "this is one article", "this is another article", colorsGenerated, 0.1
-        )
-        return article
-    except Exception as e:
-        return make_response({"Error translating": str(e)}, 404)
+def fetch_target_article(requestModel: RequestModel):
+    return "targetArticle"
+
+
+def fetch_source_article_languages(request: RequestModel) -> ArticleModel:
+    return ArticleModel(
+        scrape.getArticle(request.get_sourceArticleUrl()),
+        "targetArticle",
+        scrape.languageGetter(request.get_sourceArticleUrl()),
+    )
+
+def get_target_article(targetArticleUrl:str):
+     return scrape.getArticle(targetArticleUrl)
+    

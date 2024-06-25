@@ -13,12 +13,6 @@ def client(app):
     return app.test_client()
 
 
-def test_get_article(client):
-    data = {"sourceArticleUrl": "https://en.wikipedia.org/wiki/Water_scarcity"}
-    response = client.post("/test", json=data)
-    assert response.status_code == 200
-    assert response.is_json
-
 
 def test_translate_controller_source_article(client):
     data = {
