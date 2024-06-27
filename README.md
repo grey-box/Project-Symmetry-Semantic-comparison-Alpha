@@ -11,19 +11,16 @@
 
 ## About
 
-Project Symmetry is a modern semantic translator tool designed to translate, compare, and evaluate the semantic similarity of Wikipedia content across different languages. The tool's primary functionality is to translate articles from one language to another, chosen by the user. These features, detailed in  [features](./docs/features.md), focus on optimizing the translated content's performance while ensuring compatibility with BSD, Linux, macOS, and Windows operating systems.
+Project Symmetry is a modern semantic translator tool designed to translate, compare, and evaluate the semantic similarity of Wikipedia content across different languages. The tool's primary functionality is to translate articles from one language to another, chosen by the user. 
 
-These [features](./docs/features.md) aim to provide)
 
-Note that Project Symmetry is considered to be at a **beta** level of readiness. At this level, we suggest that the software is in a stage where it's functional and usable for many tasks but it's still has some missing features or bugs that need addressing.
-
-Precompiled binaries are available from the [GitHub releases page](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/releases). These executable files are ready to run without the need for compilation or building from the source code. Thus, you can download these precompiled binaries from the Project Symmetry GitHub releases page, making it easier for you to install and use the terminal emulator without going through the process of compiling the code yourself.
+Precompiled binaries will be available from the [GitHub releases page](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/releases). 
 
 Join [Project-Symmetry](https://www.grey-box.ca/project-symmetry/), if you have more questions or are looking to find out more about the project. 
 
-## Features
+## Structure
 
-You can find an overview over the features available in Project Symmetry [here](./docs/features.md).
+There are a few elements to this project, a RESTful API server that can be installed via [Server](
 
 ## Installation
 
