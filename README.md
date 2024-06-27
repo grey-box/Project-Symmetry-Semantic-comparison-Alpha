@@ -23,7 +23,7 @@ There are 2 parts to this software, a RESTful Server and a UI. The UI is current
 
 ### Installation
 
-Currently no binaries are available, follow [SETUP]( instruction to access application.
+Currently no binaries are available in repo, follow [SETUP](https://github.com/grey-box/Project-Symmetry-Semantic-comparison-Alpha/blob/main/CONTRIBUTING.md) to generate binaries.
 
 
 
