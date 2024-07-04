@@ -19,7 +19,7 @@ def test_get_target_language_article_of_the_orginial_article():
 def test_get_blue_score_comparison_endpoint():
     response = client.post("/api/v1/article/comparator/blueScore",
                                json={
-                                   "original": "sentence a",
+                                   "source": "sentence a",
                                    "target": "sentence a.sentence b"
                                }
                            )

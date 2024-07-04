@@ -3,7 +3,6 @@ from nltk.translate.bleu_score import sentence_bleu
 from nltk.tokenize import sent_tokenize
 from nltk.translate.bleu_score import SmoothingFunction
 import time
-import colors
 
 '''
 Iterates over the source and the target articles sentence by sentence and 
