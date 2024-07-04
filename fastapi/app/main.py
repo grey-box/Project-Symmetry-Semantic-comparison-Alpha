@@ -21,6 +21,9 @@ def get_list_of_target_languages_with_corresponding_link(url:Url):
 @app.post("/api/v1/article/original/targetLanguageArticle")
 def get_target_language_article_of_the_orginial_article(url:Url):
     return scrape.getArticle(url.address);
+@app.post("/api/v1/article/comparator/blueScore")
+def get_blue_score_comparison():
+    return {"test":"hey"}
 
 
 if __name__ == '__main__':

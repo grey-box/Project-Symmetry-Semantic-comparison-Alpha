@@ -15,3 +15,12 @@ def test_get_list_of_target_languages_for_water_scarcity_page():
 def test_get_target_language_article_of_the_orginial_article():
     response = client.post("/api/v1/article/original/targetLanguageArticle",json ={ "address":"https://en.wikipedia.org/wiki/water_scarcity"})
     assert response.status_code == 200
+
+def test_get_blue_score_comparison_endpoint():
+    response = client.post("/api/v1/article/comparator/blueScore",
+                               json={
+                                   "original": "sentence a",
+                                   "target": "sentence a.sentence b"
+                               }
+                           )
+    assert response.status_code == 200
