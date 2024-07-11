@@ -3,7 +3,6 @@ from nltk.translate.bleu_score import sentence_bleu
 from nltk.tokenize import sent_tokenize
 from nltk.translate.bleu_score import SmoothingFunction
 import time
-import colors
 from bert_score import score as bert_score
 
 '''
@@ -44,22 +43,29 @@ def compare_bertScore(source, target, colors, similarity=0.1):
     target_pair_dict = dict()
     start_time_1 = time.time()
 
+
     # Iteration over both articles
     for src in source_list:
+        best_score = 0;
         for tar in target_list:
             # Determine if the current sentence has a match or not
             start_time = time.time()
             P, R, F1 = bert_score([src], [tar], lang="en")
             score = F1.mean().item()
+            if score>= best_score:
+                best_score=score
+                source_pair_dict[src] = [tar, colors[i],score]
+                target_pair_dict[tar] = [src, colors[i],score]
+
             print("Bert Score" , score)
-            if score >= similarity:
-                i += 1 # Increase i so that new color can be assigned
-                # Check for duplicates
-                if (src not in source_pair_dict and tar not in target_pair_dict):
-                  
-                    source_pair_dict[src] = [tar, colors[i]]
-                   
-                    target_pair_dict[tar] = [src, colors[i]]
+
+            # if score >= similarity:
+            #     i += 1 # Increase i so that new color can be assigned
+            #     # Check for duplicates
+            #     if (src not in source_pair_dict and tar not in target_pair_dict):
+            #
+            #         source_pair_dict[src] = [tar, colors[i]]
+            #         target_pair_dict[tar] = [src, colors[i]]
     end_time_1 = time.time()
     print(f"Iteration Time:  {end_time_1 - start_time_1}")
     return source_pair_dict, target_pair_dict
