@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="200" alt="Alacritty Logo" src="https://www.grey-box.ca/wp-content/uploads/2018/05/logoGREY-BOX.jpg">
+    <img width="200" alt="Grey-box Logo" src="https://www.grey-box.ca/wp-content/uploads/2018/05/logoGREY-BOX.jpg">
 </p>
 
 <h1 align="center">Symmetery - Cross-Language Wikipedia Article Gap Analysis Tool</h1>
@@ -16,6 +16,10 @@ Project Symmetry is a modern semantic translator tool designed to translate, com
 Precompiled binaries will soon be available from the [GitHub releases page](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/releases). 
 
 Join [Project-Symmetry](https://www.grey-box.ca/project-symmetry/), if you have more questions or are looking to find out more about the project. 
+
+## Other Resources
+
+* [Figma UX](https://www.figma.com/design/yN89gDcV3rdbje70X9RJGL/Project-Symmetry?node-id=199-529&t=MbzAcPzTNmWPFh8w-0)
 
 ## Structure
 
