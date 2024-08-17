@@ -5,7 +5,7 @@ module.exports = {
       config: {
         repository: {
           owner: 'frankfarsi',
-          name: 'project-symmetry-semantic-comparison-alpha'
+          name: 'symmetry'
         },
         prerelease: false,
         draft: true

@@ -117,22 +117,25 @@ const Layout = () => {
   };
   
   return (
-      <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-1/3">Referenced Article</TableHead>
-          <TableHead>Original Article</TableHead>
+    <div>
+    <Table>
+    <TableHeader>
+      <TableRow>
+        <TableHead className="w-1/3">Referenced Article</TableHead>
+        <TableHead>Original Article</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {texts.map((text) => (
+        <TableRow className={getColorClass(text.suggestionType)} >
+          <TableCell className="font-medium">{text.reference}</TableCell>
+          <TableCell>{text.editing}</TableCell>
         </TableRow>
-      </TableHeader>
-      <TableBody>
-        {texts.map((text) => (
-          <TableRow className={getColorClass(text.suggestionType)} >
-            <TableCell className="font-medium">{text.reference}</TableCell>
-            <TableCell>{text.editing}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+      ))}
+    </TableBody>
+  </Table>
+      
+    </div>
     
   )
 }
