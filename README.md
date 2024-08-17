@@ -29,5 +29,10 @@ There are 2 parts to this software, a RESTful Server and a UI. The UI is current
 
 Currently no binaries are available in repo, follow [SETUP](https://github.com/grey-box/Project-Symmetry-Semantic-comparison-Alpha/blob/main/CONTRIBUTING.md) to generate binaries.
 
+### How to make an executable
 
+make sure to npm install
+
+go the folder thats ui
+then execute npm run package
 
