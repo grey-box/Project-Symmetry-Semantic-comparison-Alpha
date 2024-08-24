@@ -117,25 +117,34 @@ const Layout = () => {
   };
   
   return (
-    <div>
-    <Table>
-    <TableHeader>
-      <TableRow>
-        <TableHead className="w-1/3">Referenced Article</TableHead>
-        <TableHead>Original Article</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {texts.map((text) => (
-        <TableRow className={getColorClass(text.suggestionType)} >
-          <TableCell className="font-medium">{text.reference}</TableCell>
-          <TableCell>{text.editing}</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-      
+
+    <div className="!bg-gray-50 h-full grid grid-cols-[100px_1fr]">
+      <Navbar />
+      <main className="text-black bg-gray-50 py-6 px-7 flex flex-col gap-y-6">
+        <PageHeader />
+        <Outlet />
+      </main>
     </div>
+    
+  //   <div>
+  //   <Table>
+  //   <TableHeader>
+  //     <TableRow>
+  //       <TableHead className="w-1/3">Referenced Article</TableHead>
+  //       <TableHead>Original Article</TableHead>
+  //     </TableRow>
+  //   </TableHeader>
+  //   <TableBody>
+  //     {texts.map((text) => (
+  //       <TableRow className={getColorClass(text.suggestionType)} >
+  //         <TableCell className="font-medium">{text.reference}</TableCell>
+  //         <TableCell>{text.editing}</TableCell>
+  //       </TableRow>
+  //     ))}
+  //   </TableBody>
+  // </Table>
+      
+  //   </div>
     
   )
 }

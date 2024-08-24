@@ -13,6 +13,16 @@ import { translateArticle } from '@/services/translateArticle'
 import { TranslationFormType } from '@/models/TranslationFormType'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 const TRANSLATION_LANGUAGES = [
   { value: 'english', label: 'English' },
@@ -21,8 +31,103 @@ const TRANSLATION_LANGUAGES = [
   { value: 'arabic', label: 'Arabic' },
 
 ]
+const texts = [
+  {
+    editing:"Born in Scranton, Pennsylvania, Biden moved with his family to Delaware in 1953.",
+    reference:"Joseph Robinette Biden, Jr, commonly known as Joe Biden (/d͡ʒoʊ ˈbaɪ.dən/a), born November 20, 1942 in Scranton, Pennsylvania, is an American statesman. He settled in Delaware after leaving his hometown with his family in 1953.",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "change"
+  },
+  {
+    
+    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
+    reference:"",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "no change"
+  },
+  {
+    
+    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
+    reference:"",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "no change"
+  },
+  {
+    
+    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
+    reference:"",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "no change"
+  },
+  {
+    
+    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
+    reference:"",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "no change"
+  },
+  {
+    
+    editing:"He graduated from the University of Delaware in 1965 before earning his law degree from Syracuse University in 1968.",
+    reference:"He studied at the University of Delaware before earning a law degree from Syracuse University in 1968.",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "change"
+  },
+  {
+    
+    editing:"He was elected to the New Castle County Council in 1970 and to the U.S. Senate in 1972.",
+    reference:"He was elected to the county council from New Castle in 1970. At age 30, Joe Biden becomes the sixth youngest senator in the country's history, having been elected to the United States Senate in 1972.",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "change"
+  },
+  {
+    
+    editing:"As a senator, Biden drafted and led the effort to pass the Violent Crime Control and Law Enforcement Act and the Violence Against Women Act.",
+    reference:"Considered a moderate Democrat, he chairs the Judiciary and Criminal Committee of the upper house of Congress from 1987 to 1995 and also chaired the Senate Foreign Affairs Committee twice between 2001 and 2009.",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "change"
+  },
+  {
+    
+    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
+    reference:"",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "no change"
+  },
+  {
+    
+    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
+    reference:"",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "no change"
+  },
+  {
+    
+    editing:"",
+    reference:"He is the oldest president in U.S. history and the first to have a female vice presiden",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "addition"
+  },
+  {
+    
+    editing:"Biden ran unsuccessfully for the 1988 and 2008 Democratic presidential nominations.",
+    reference:"Unsuccessful candidate in the Democratic primaries for the presidential election of 1988 and again in 2008,",
+    suggestedContribution: "Canada has 35 million people",
+    suggestionType : "change"
+  },
 
+]
 const TranslationSection = () => {
+  const getColorClass = (type: any) => {
+    switch (type) {
+      case 'change':
+        return 'bg-green-100';
+      case 'addition':
+        return 'bg-red-100';
+      default:
+        return '';
+    }
+  };
   const [availableTranslationLanguages, setAvailableTranslationLanguages] = useState<SelectData<string>[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<TranslationFormType>({
@@ -147,53 +252,26 @@ const TranslationSection = () => {
               )}
             />
           </div>
-
-          <div className="flex items-stretch py-2 border-t h-full">
-            <div className="w-1/2">
-              <FormField
-                control={form.control}
-                name="sourceArticleContent"
-                render={({ field }) => (
-                  <FormItem className="flex items-center gap-x-4 border-b mx-2">
-                    <FormLabel className="shrink-0 sr-only">Content</FormLabel>
-                    <FormControl>
-                      <Textarea className="border-0 resize-none" readOnly placeholder="Source article" {...field}
-                                rows={22} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <span className="text-sm text-center inline-block w-full my-3">
-                Word Count <span className="font-bold">{watch('sourceArticleContent').split(' ').length}</span>
-              </span>
-            </div>
-
-            <Separator orientation="vertical" className="border-slate-400 h-auto w-px" />
-
-            <div className="w-1/2">
-              <FormField
-                control={form.control}
-                name="translatedArticleContent"
-                render={({ field }) => (
-                  <FormItem className="flex items-center gap-x-4 border-b mx-2">
-                    <FormLabel className="shrink-0 sr-only">Content</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        className="border-0 resize-none"
-                        placeholder="Translated article"
-                        {...field}
-                        rows={22} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <span className="text-sm text-center inline-block w-full my-3">
-                Word Count <span className="font-bold">{watch('translatedArticleContent').split(' ').length}</span>
-              </span>
-            </div>
+          <div>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-1/3">Referenced Article</TableHead>
+                  <TableHead>Original Article</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {texts.map((text) => (
+                  <TableRow className={getColorClass(text.suggestionType)} >
+                    <TableCell className="font-medium">{text.reference}</TableCell>
+                    <TableCell>{text.editing}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+      
           </div>
+        
         </form>
       </Form>
     </section>
