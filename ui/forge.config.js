@@ -15,7 +15,7 @@ module.exports = {
 
   packagerConfig: {
     extraResource: [
-      '../api/flaskr/dist/pyapp'
+      // '../api/flaskr/dist/pyapp'
     ]
   },
   rebuildConfig: {},
