@@ -5,7 +5,7 @@
 <h1 align="center">Symmetery - Cross-Language Wikipedia Article Gap Analysis Tool</h1>
 
 <p align="center">
-  <img alt="Project-Symmetery: Cross-Language Wikipedia Article Semantic Analysis Tool"
+  <img alt="Project-Symmetry: Cross-Language Wikipedia Article Semantic Analysis Tool"
        src="extras/symmetrydemo.png">
 </p>
 
