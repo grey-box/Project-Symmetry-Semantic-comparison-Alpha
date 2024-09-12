@@ -29,9 +29,9 @@ const createWindow = () => {
   }
   let backendPath;
   if (app.isPackaged) {
-    backendPath = path.join(process.resourcesPath, 'pyapp');
+    backendPath = path.join(process.resourcesPath, 'main');
   } else {
-    backendPath = path.join(process.cwd(), '../api/flaskr/dist/pyapp');
+    backendPath = path.join(process.cwd(), '../fastapi/dist/main');
   }
   execFile(backendPath, (error: any, stdout: any, stderr: any) => {
     if (error) {
