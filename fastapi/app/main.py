@@ -2,34 +2,33 @@ from fastapi import FastAPI, HTTPException
 from uvicorn import run
 from typing import Union
 import uvicorn
+import requests
 from pydantic import BaseModel
+from bs4 import BeautifulSoup
+
 
 app = FastAPI()
 
-url = "https://en.wikipedia.org/wiki/Water_scarcity"
+class ArticleResponse(BaseModel):
+    article: str
 
-# def getArticle
-def getArticle(url):
+@app.get("/get_article", response_model=ArticleResponse)
+def get_article(url: str):
     try:
         page = requests.get(url)
-        page.raise_for_status() # for HTTP errors
-        soup = BeautifulSoup(page.content, "html.parser")
-        title = soup.find('title').text.replace(" - Wikipedia", "")
-        text = ""
-        for paragraph in soup.find_all('p'):
-            text += paragraph.text + " " # Adding a space to keep words separate
-        return {"title": title, "text": text}
-    except requests.exceptions.RequestException as e: # error handling
-        print(f"Error getting article: {e}")
-        return None
+        page.raise_for_status()  # Check if the request was successful
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=400, detail=f"Request error: {e}")
 
-@app.get("/get_article/")
-def get_article(url: str)
-    article = getArticle(url)
-    if article:
-        return {"article": article}
-    else: # error handling
-        raise HTTPException(status_code=404, detail="Article not found")
+    soup = BeautifulSoup(page.content, "html.parser")
+    paragraphs = soup.find_all('p')
+
+    if not paragraphs:
+        raise HTTPException(status_code=404, detail="Article content not found.")
+
+    article_content = " ".join([para.get_text(strip=True) for para in paragraphs])
+
+    return {"article": article_content}
 
 class Url(BaseModel):
     address:str
