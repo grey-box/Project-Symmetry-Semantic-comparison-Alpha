@@ -1,11 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from uvicorn import run
 from typing import Union
 import uvicorn
 from pydantic import BaseModel
 
-
 app = FastAPI()
+
+url = "https://en.wikipedia.org/wiki/Water_scarcity"
 
 # def getArticle
 def getArticle(url):
