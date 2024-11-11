@@ -7,6 +7,8 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+# def getArticle
+
 class Url(BaseModel):
     address:str
 
