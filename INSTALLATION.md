@@ -51,6 +51,7 @@ This guide will help you set up a Python virtual environment and install the req
    | **Linux/macOS**      | `source venv/bin/activate` |
    
    3. Install Dependencies
+      
    Once the virtual environment is activated, install the necessary dependencies from the requirements.txt file:
    
    ```
@@ -58,6 +59,7 @@ This guide will help you set up a Python virtual environment and install the req
    ```
    
    4. Install PyInstaller
+      
    To package your Python application into standalone executables, you need to install PyInstaller:
    
    ```
