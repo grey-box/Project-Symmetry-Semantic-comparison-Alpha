@@ -7,9 +7,11 @@ Before starting the installation, make sure you have the following tools install
 
 - **OpenGL ES 2.0** (or higher)
 - **Windows**: ConPTY support (Windows 10 version 1809 or higher)
+- **Ubuntu**: Version 20.04 or later
 - **Node.js**: Latest version (e.g., 20.11.0)
 - **Python**: Version 3.8 - 3.11 (NLP library requirements prevent 3.12)
-- 
+- **npm**: Version 8.19.4
+- **Electron**: Version v26.2.4
 
 
 ### Installation Steps
