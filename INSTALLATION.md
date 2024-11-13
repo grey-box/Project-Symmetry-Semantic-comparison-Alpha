@@ -1,82 +1,81 @@
-# Installation
+# Project Symmetry Installation Guide
 
- - UI Installation
- - Server Installation
-
-
-# UI Installation
-
-## Installation
-
-Project Symmetry can be installed by using various package managers on Linux, BSD, macOS and Windows.
-
-Prebuilt binaries for macOS and Windows can also be downloaded from the
-[GitHub releases page](https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha/releases).
-
-For everyone else, the detailed instructions to install Project Symmetry can be found [in progress](INSTALL.md).
+## UI Installation
 
 ### Requirements
+Before starting the installation, make sure you have the following tools installed:
 
-- At least OpenGL ES 2.0
-- [Windows] ConPTY support (Windows 10 version 1809 or higher)
+- **OpenGL ES 2.0** (or higher)
+- **Windows**: ConPTY support (Windows 10 version 1809 or higher)
+- **Node.js**: Latest version (e.g., 20.11.0)
+- **Python**: Version 3.8 - 3.11 (NLP library requirements prevent 3.12)
+- 
 
-## Contributing
 
-A guideline about contributing to Project Symmetry can be found in the
-[`CONTRIBUTING.md (in prgress)`](CONTRIBUTING.md) file.
+### Installation Steps
 
-## Getting Started
+I. **Clone the Repository**
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Open your terminal and run the following command to clone the repository:
 
-### Prerequisites
-
-- Node: use latest but i used 20.11.0
-- Python: 3.8-3.11 (nltk library requirments dont allow 3.12)
-
-### Installation
-
-1. Clone the repository to your local machine:
-
-``
+```
 git clone https://github.com/frankfarsi/Project-Symmetry-Semantic-comparison-Alpha.git
 ```
 
-2. Navigate to ui and install dependencies
 
+II. **Navigate to ui and Install Dependencies**
+
+```
 cd ui
 npm install
 ```
-3. make python virtual env install pyinstaller
 
-cd ../api
-python -m venv venv
+III. **Setting up the Python Environment**
+
+This guide will help you set up a Python virtual environment and install the required dependencies on different operating systems (Windows, Linux, macOS).
+
+   1. Create a Virtual Environment
+   If you haven't already created a virtual environment, you can do so by running the following command:
+   
+   ```
+   cd ../api
+   python -m venv venv
+   ```
+   2. Activate the Virtual Environment
+   
+   | **Operating System** | **Command** |
+   |----------------------|-------------|
+   | **Windows**          | `cd Scripts\` <br> `.\Activate.ps1` or `.\Activate` |
+   | **Linux/macOS**      | `source venv/bin/activate` |
+   
+   3. Install Dependencies
+   Once the virtual environment is activated, install the necessary dependencies from the requirements.txt file:
+   
+   ```
+   pip install -r requirements.txt
+   ```
+   
+   4. Install PyInstaller
+   To package your Python application into standalone executables, you need to install PyInstaller:
+   
+   ```
+   pip install pyinstaller
+   ```
+
+V. **Use Pyinstaller to Build Flask Executable**
+
 ```
-4. Activate Python virtual env and install dependencies 
-
-#this command demands on your os or terminal for linux/bash/(i think it works for mac too) its
-# If your OS is Windows 10 or 11, you use this command: cd Scripts\ ".\Activate.ps1 or .\Activate" to activate your Python virtual environment.
-# In case you run into issues when running the command "pip install -r requirements.txt", try "pip freeze" to generate it automatically based on the packages installed in your current Python environment. This may help aleviate the issue.
-# Run:   
-source venv/scripts/activate
-pip install -r requirements.txt
-pip install pyinstaller
-```
-
-
-5. Use pyinstaller to build flask executable 
-```bash
 cd flaskr
 pyinstaller -F app.py
 ```
-6.Navigate to ui folder and run app
-```bash
 
+VI. **Navigate to ui Folder and Run App**
+
+```
 cd ../../ui
 deactivate
 npm install
 npm run start
-
 ```
 
 ### Generating docs
