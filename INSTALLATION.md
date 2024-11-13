@@ -47,7 +47,7 @@ This guide will help you set up a Python virtual environment and install the req
    
    | **Operating System** | **Command** |
    |----------------------|-------------|
-   | **Windows**          | `cd Scripts\` <br> `.\Activate.ps1` or `.\Activate` |
+   | **Windows**          | `cd Scripts\` <br> `.\Activate.ps1 (for Powershell)` or `.\Activate (for bash)` |
    | **Linux/macOS**      | `source venv/bin/activate` |
    
    3. Install Dependencies
