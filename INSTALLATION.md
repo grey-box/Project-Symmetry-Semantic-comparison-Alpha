@@ -70,7 +70,7 @@ V. **Use Pyinstaller to Build Flask Executable**
 
 ```
 cd flaskr
-pyinstaller -F app.py
+pyinstaller -F pyapp.py
 ```
 
 VI. **Navigate to ui Folder and Run App**
