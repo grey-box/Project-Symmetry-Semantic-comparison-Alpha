@@ -209,6 +209,7 @@ const TranslationSection = () => {
                   <FormControl>
                     <Input placeholder="Enter a URL" className="!mt-0" {...field} />
                   </FormControl>
+                  <Button disabled={isLoading} variant="default" type="submit">Select</Button> 
                   <FormMessage />
                 </FormItem>
               )}
