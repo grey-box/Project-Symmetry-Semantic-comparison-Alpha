@@ -8,6 +8,7 @@ declare const MAIN_WINDOW_VITE_NAME: string;
 const isDev = false;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
+// Updated the code
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
