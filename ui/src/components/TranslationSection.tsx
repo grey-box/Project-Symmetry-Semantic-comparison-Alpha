@@ -75,6 +75,7 @@ const TranslationSection = () => {
   } = form
   /*
   // Function to fetch languages from the API
+  Updated the code
   const fetchLanguages = useCallback(async () => {
     try {
       setIsLoading(true);
