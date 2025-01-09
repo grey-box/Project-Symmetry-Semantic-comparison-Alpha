@@ -35,14 +35,19 @@ const createWindow = () => {
   } else {
     backendPath = path.join(process.cwd(), '../fastapi/dist/main');
   }
-  execFile(backendPath, (error: any, stdout: any, stderr: any) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-  });
+  try {
+    execFile(backendPath, ['--port', '8000'], (error: any, stdout: any, stderr: any) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
+  }
+  catch(e) {
+    console.log(e);
+  }
 
   // Open the DevTools.
   if (isDev) {
