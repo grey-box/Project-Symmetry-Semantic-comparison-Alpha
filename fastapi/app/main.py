@@ -1,7 +1,5 @@
-#!/bin/bash
 from fastapi import FastAPI, HTTPException, Query
 import uvicorn
-from uvicorn import run
 from typing import Union, List
 import requests
 from pydantic import BaseModel
@@ -57,36 +55,9 @@ def get_wikipedia_url(title: str) -> str:
 
     return fullurl
 
-'''
-def get_wikipedia_url(title: str) -> str:
-    """Get the Wikipedia article URL for a given title using the Wikipedia API."""
-    api_url = 'https://en.wikipedia.org/w/api.php'
-    params = {
-        'action': 'query',
-        'format': 'json',
-        'titles': title,
-        'prop': 'info',
-        'inprop': 'url',
-    }
-    response = requests.get(api_url, params=params)
-    data = response.json()
-    pages = data.get('query', {}).get('pages', {})
-    page = next(iter(pages.values()), None)
-
-    if not page or 'missing' in page:
-        logging.error('Wikipedia article not found.')
-        raise HTTPException(status_code=404, detail="Wikipedia article not found.")
-
-    fullurl = page.get('fullurl')
-    if not fullurl:
-        raise HTTPException(status_code=404, detail="Wikipedia article URL not found.")
-
-    return fullurl
-'''
-
 @app.get("/get_article", response_model=ArticleResponse)
 def get_article(url: str = Query(None), title: str = Query(None)):
-    print(f'[INFO] Calling get article endpoint')
+    logging.info("Calling get article endpoint")
     if not url and not title:
         logging.info("Either 'url' or 'title' must be provided.")
         raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
@@ -120,61 +91,9 @@ def get_article(url: str = Query(None), title: str = Query(None)):
 
     return {"article": article_content, "languages": languages}
 
-'''
-@app.get("/get_languages")
-def get_languages(url: str):
-    # Extract the page title from the URL
-    parsed_url = urlparse(url)
-    if parsed_url.hostname != "en.wikipedia.org":
-        raise HTTPException(status_code=400, detail="Invalid Wikipedia URL")
-
-    # Handle different URL formats (direct page, with 'title=' parameter)
-    page_title = None
-    if parsed_url.path.startswith("/wiki/"):
-        page_title = parsed_url.path[6:]  # Remove "/wiki/" from the path
-    elif 'title' in parse_qs(parsed_url.query):
-        page_title = parse_qs(parsed_url.query)['title'][0]
-
-    if not page_title:
-        raise HTTPException(status_code=400, detail="Page title could not be extracted from URL")
-
-    # Wikipedia API endpoint
-    api_url = f"https://en.wikipedia.org/w/api.php?action=query&titles={page_title}&prop=langlinks&format=json"
-    
-    response = requests.get(api_url)
-    
-    if response.status_code != 200:
-        raise HTTPException(status_code=500, detail="Error fetching data from Wikipedia")
-    
-    data = response.json()
-    
-    # Extract language links from the response
-    pages = data.get("query", {}).get("pages", {})
-    if not pages:
-        raise HTTPException(status_code=404, detail="Page not found on Wikipedia")
-    
-    page_id = next(iter(pages))
-    langlinks = pages[page_id].get("langlinks", [])
-    
-    # Extract the language names and codes
-    languages = [{"lang": link["lang"], "title": link["title"]} for link in langlinks]
-    
-    return {"languages": languages}
-'''
-
-@app.get("/translate/sourceArticle", response_model=ArticleResponse)
-def translate_article(url: str = Query(None), title: str = Query(None)):
-    pass
-
-class Url(BaseModel):
-    address: str
-
-class Comparator(BaseModel):
-    source: str
-    target: str
-
 @app.post("/api/v1/article/original/")
 def get_orginal_article_by_url(url: Url):
+    logging.info("Processing original article by URL")
     return 'hello'
 
 if __name__ == '__main__':
