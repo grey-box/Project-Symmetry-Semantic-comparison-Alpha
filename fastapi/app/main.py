@@ -1,5 +1,5 @@
 #!/bin/bash
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 import uvicorn
 from uvicorn import run
 from typing import Union, List
@@ -28,9 +28,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class ArticleResponse(BaseModel):
-    article: str
-    languages: List[str]
+    sourceArticle: str
+    articleLanguages: List[str]
+
 
 def get_wikipedia_url(title: str) -> str:
     """Get the Wikipedia article URL for a given title using the Wikipedia API."""
@@ -119,7 +121,8 @@ def get_article(url: str = Query(None), title: str = Query(None)):
         if lang:
             languages.append(lang['title'])
 
-    return {"article": article_content, "languages": languages}
+    return {"sourceArticle": article_content, "articleLanguages": languages}
+
 
 '''
 @app.get("/get_languages")
@@ -162,6 +165,59 @@ def get_languages(url: str):
     
     return {"languages": languages}
 '''
+'''
+class ArticleRequest(BaseModel):
+    url: str = None
+    title: str = None
+
+class ArticleResponse(BaseModel):
+    article: str
+    languages: list
+
+def extract_article_content(url: str):
+    try:
+        page = requests.get(url)
+        page.raise_for_status()  # Check if the request was successful
+    except requests.exceptions.RequestException as e:
+        logging.error(f'Request error: {e}')
+        raise HTTPException(status_code=400, detail=f"Request error: {e}")
+
+    soup = BeautifulSoup(page.content, "html.parser")
+    paragraphs = soup.find_all('p')  # Extract the article content
+
+    if not paragraphs:
+        logging.info("Article content not found.")
+        raise HTTPException(status_code=404, detail="Article content not found.")
+
+    article_content = " ".join([para.get_text(strip=True) for para in paragraphs])
+
+    languages = []
+    language_list = soup.find_all('li', class_='interlanguage-link')
+    for lang_item in language_list:
+        lang = lang_item.find('a', title=True)
+        if lang:
+            languages.append(lang['title'])
+
+    return {"article": article_content, "languages": languages}
+
+@app.post("/get_article", response_model=ArticleResponse)
+async def get_article(request: Request):
+    data = await request.json()
+    url = data.get("url")
+    title = data.get("title")
+
+    print(f'[INFO] Calling get article endpoint (POST)')
+    if not url and not title:
+        logging.info("Either 'url' or 'title' must be provided.")
+        raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
+
+    if title:
+        # Use the Wikipedia API to get the URL from the title
+        url = get_wikipedia_url(title)
+
+    return extract_article_content(url)
+'''
+
 
 @app.get("/translate/sourceArticle", response_model=ArticleResponse)
 def translate_article(url: str = Query(None), title: str = Query(None)):

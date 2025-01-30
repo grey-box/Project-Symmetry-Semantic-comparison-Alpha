@@ -33,20 +33,23 @@ const createWindow = () => {
   if (app.isPackaged) {
     backendPath = path.join(process.resourcesPath, 'main');
   } else {
-    backendPath = path.join(process.cwd(), '../fastapi/dist/main');
+    backendPath = path.join(process.cwd(), '../fastapi/app/dist/main');
   }
+  console.log(`[INFO] backendPath: ${backendPath}`)
   try {
     execFile(backendPath, ['--port', '8000'], (error: any, stdout: any, stderr: any) => {
+      console.log("[INFO] Running backend API")
       if (error) {
         console.error(`exec error: ${error}`);
         return;
       }
+      console.log(`[INFO] API has started!`)
       console.log(`stdout: ${stdout}`);
       console.error(`stderr: ${stderr}`);
     });
   }
   catch(e) {
-    console.log(e);
+    console.log(`Error while running API : ${e}`);
   }
 
   // Open the DevTools.

@@ -104,40 +104,59 @@ const TranslationSection = () => {
     fetchLanguages();
   }, [fetchLanguages]);
   */
-  /*
+  
   const onSubmit = useCallback(async (data: TranslationFormType) => {
     console.log("Translate button is hit")
     try {
       setIsLoading(true)
+      /*
       const response = await fetchArticle({
         translationTool,
         deepLApiKey: APIKey,
         sourceArticleUrl: data.sourceArticleUrl,
         targetLanguage: '',
       })
-      setValue('sourceArticleContent', response.data.sourceArticle.text)
+      */
+
+      const response = await fetchArticle(data.sourceArticleUrl)
+      setValue('sourceArticleContent', response.data.sourceArticle)
+      // Add the fetched article to the texts array
+      setTexts(prevTexts => [
+        ...prevTexts,
+        {
+          editing: response.data.sourceArticle,  // you can change this to something else if necessary
+          reference: response.data.sourceArticle, // adjust based on your data structure
+          suggestedContribution: '',
+          suggestionType: 'change',  // Set the type based on your needs (e.g., 'change', 'addition')
+        },
+      ]);
       setAvailableTranslationLanguages(
         Object.entries(response.data.articleLanguages).map(([key, value]) => ({
           value,
-          label: key,
+          label: value,
         })))
+      
     } catch (error) {
       console.log(error)
+      alert(error)
     } finally {
       setIsLoading(false)
     }
   }, [setValue, translationTool, APIKey])
-  */
+  
+ /*
   const onSubmit = useCallback(async (data: TranslationFormType) => {
     console.log("Translate button is hit");
     try {
       setIsLoading(true);
+      
       // Fetch source article from the API
       // alert(data.sourceArticleUrl)
       // alert(`URL : http://127.0.0.1:8000/get_article?url=${data.sourceArticleUrl}`)
       const response = await fetch(`http://127.0.0.1:8000/get_article?url=${data.sourceArticleUrl}`);
       console.log(response);
       // alert(data.sourceArticleUrl)
+      
       
       // Check if the response is ok
       if (!response.ok) {
@@ -181,6 +200,7 @@ const TranslationSection = () => {
       setIsLoading(false);
     }
   }, [setValue]);
+  */
   
 
   const onLanguageChange = useCallback(async (translateArticleUrl: string) => {
@@ -272,7 +292,6 @@ const TranslationSection = () => {
               )}
             />
           </div>
-          
           <div>
             {texts.map((text, index) => (
               <div key={index} className={getColorClass(text.suggestionType)}>
@@ -286,5 +305,6 @@ const TranslationSection = () => {
     </section>
   )
 }
+
 
 export default TranslationSection
