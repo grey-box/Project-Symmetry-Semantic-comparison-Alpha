@@ -27,6 +27,6 @@ jobs:
         run: pip install pyinstaller
       
       - name: Build with PyInstaller
-        run: pyinstaller -F api/flaskr/pyapp.py
+        run: pyinstaller -F fastapi/app/main.py
 
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
