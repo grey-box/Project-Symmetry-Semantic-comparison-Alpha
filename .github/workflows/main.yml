@@ -1,6 +1,9 @@
 name: Flask test suite
 run-name: ${{ github.actor }} is building symmetry 🚀
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - master_branch
 jobs:
   Test_API_endpoints:
     runs-on: windows-latest
