@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { ChevronRight, Info } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
+// import React, { useState, useEffect } from 'react';
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -29,94 +30,8 @@ const TRANSLATION_LANGUAGES = [
   { value: 'french', label: 'French' },
   { value: 'hindi', label: 'Hindi' },
   { value: 'arabic', label: 'Arabic' },
-
 ]
-const texts = [
-  {
-    editing:"Born in Scranton, Pennsylvania, Biden moved with his family to Delaware in 1953.",
-    reference:"Joseph Robinette Biden, Jr, commonly known as Joe Biden (/d͡ʒoʊ ˈbaɪ.dən/a), born November 20, 1942 in Scranton, Pennsylvania, is an American statesman. He settled in Delaware after leaving his hometown with his family in 1953.",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "change"
-  },
-  {
-    
-    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
-    reference:"",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "no change"
-  },
-  {
-    
-    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
-    reference:"",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "no change"
-  },
-  {
-    
-    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
-    reference:"",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "no change"
-  },
-  {
-    
-    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
-    reference:"",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "no change"
-  },
-  {
-    
-    editing:"He graduated from the University of Delaware in 1965 before earning his law degree from Syracuse University in 1968.",
-    reference:"He studied at the University of Delaware before earning a law degree from Syracuse University in 1968.",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "change"
-  },
-  {
-    
-    editing:"He was elected to the New Castle County Council in 1970 and to the U.S. Senate in 1972.",
-    reference:"He was elected to the county council from New Castle in 1970. At age 30, Joe Biden becomes the sixth youngest senator in the country's history, having been elected to the United States Senate in 1972.",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "change"
-  },
-  {
-    
-    editing:"As a senator, Biden drafted and led the effort to pass the Violent Crime Control and Law Enforcement Act and the Violence Against Women Act.",
-    reference:"Considered a moderate Democrat, he chairs the Judiciary and Criminal Committee of the upper house of Congress from 1987 to 1995 and also chaired the Senate Foreign Affairs Committee twice between 2001 and 2009.",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "change"
-  },
-  {
-    
-    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
-    reference:"",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "no change"
-  },
-  {
-    
-    editing:"He also oversaw six U.S. Supreme Court confirmation hearings, including the contentious hearings for Robert Bork and Clarence Thomas.",
-    reference:"",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "no change"
-  },
-  {
-    
-    editing:"",
-    reference:"He is the oldest president in U.S. history and the first to have a female vice presiden",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "addition"
-  },
-  {
-    
-    editing:"Biden ran unsuccessfully for the 1988 and 2008 Democratic presidential nominations.",
-    reference:"Unsuccessful candidate in the Democratic primaries for the presidential election of 1988 and again in 2008,",
-    suggestedContribution: "Canada has 35 million people",
-    suggestionType : "change"
-  },
 
-]
 const TranslationSection = () => {
   const getColorClass = (type: any) => {
     switch (type) {
@@ -128,45 +43,165 @@ const TranslationSection = () => {
         return '';
     }
   };
+  
   const [availableTranslationLanguages, setAvailableTranslationLanguages] = useState<SelectData<string>[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [texts, setTexts] = useState([
+    {
+      editing: "",
+      reference: "",
+      suggestedContribution: "",
+      suggestionType: ""
+    }
+  ]);
+
   const form = useForm<TranslationFormType>({
     defaultValues: {
       sourceArticleUrl: '',
       targetArticleLanguage: 'English',
       sourceArticleContent: '',
       translatedArticleContent: '',
+
     },
   })
+
   const { translationTool, APIKey } = useAppContext()
+
   const {
     handleSubmit,
     formState: { errors },
     watch,
     setValue,
   } = form
+  /*
+  // Function to fetch languages from the API
+  const fetchLanguages = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://127.0.0.1:8000/get_languages');
+      if (!response.ok) {
+        throw new Error('Failed to fetch languages');
+      }
 
+      const data = await response.json();
+      const languages = data.languages;  // Assuming the response contains a 'languages' field
+      alert(languages)
+      const languageOptions = languages.map((lang: string) => ({
+        value: lang.toLowerCase(),
+        label: lang,
+      }));
+
+      setAvailableTranslationLanguages(languageOptions);
+    } catch (error) {
+      console.error('Error fetching languages:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Fetch languages when the component mounts
+  useEffect(() => {
+    fetchLanguages();
+  }, [fetchLanguages]);
+  */
+  
   const onSubmit = useCallback(async (data: TranslationFormType) => {
+    console.log("Translate button is hit")
     try {
       setIsLoading(true)
+      /*
       const response = await fetchArticle({
         translationTool,
         deepLApiKey: APIKey,
         sourceArticleUrl: data.sourceArticleUrl,
         targetLanguage: '',
       })
-      setValue('sourceArticleContent', response.data.sourceArticle.text)
+      */
+
+      const response = await fetchArticle(data.sourceArticleUrl)
+      setValue('sourceArticleContent', response.data.sourceArticle)
+      // Add the fetched article to the texts array
+      setTexts(prevTexts => [
+        ...prevTexts,
+        {
+          editing: response.data.sourceArticle,  // you can change this to something else if necessary
+          reference: response.data.sourceArticle, // adjust based on your data structure
+          suggestedContribution: '',
+          suggestionType: 'change',  // Set the type based on your needs (e.g., 'change', 'addition')
+        },
+      ]);
       setAvailableTranslationLanguages(
         Object.entries(response.data.articleLanguages).map(([key, value]) => ({
           value,
-          label: key,
+          label: value,
         })))
+      
     } catch (error) {
       console.log(error)
+      alert(error)
     } finally {
       setIsLoading(false)
     }
   }, [setValue, translationTool, APIKey])
+  
+ /*
+  const onSubmit = useCallback(async (data: TranslationFormType) => {
+    console.log("Translate button is hit");
+    try {
+      setIsLoading(true);
+      
+      // Fetch source article from the API
+      // alert(data.sourceArticleUrl)
+      // alert(`URL : http://127.0.0.1:8000/get_article?url=${data.sourceArticleUrl}`)
+      const response = await fetch(`http://127.0.0.1:8000/get_article?url=${data.sourceArticleUrl}`);
+      console.log(response);
+      // alert(data.sourceArticleUrl)
+      
+      
+      // Check if the response is ok
+      if (!response.ok) {
+        throw new Error("Failed to fetch article");
+      }
+  
+      const responseData = await response.json();
+      // alert(`Response text: ${responseData.article}`);
+      setValue('sourceArticleContent', responseData.article);
+      // setValue('sourceArticleContent', responseData.sourceArticle.text);
+      // Add the fetched article to the texts array
+      setTexts(prevTexts => [
+        ...prevTexts,
+        {
+          editing: responseData.article,  // you can change this to something else if necessary
+          reference: responseData.article, // adjust based on your data structure
+          suggestedContribution: '',
+          suggestionType: 'change',  // Set the type based on your needs (e.g., 'change', 'addition')
+        },
+      ]);
+  
+      // Assuming the response contains article languages in a similar format
+      // setAvailableTranslationLanguages(
+      //   Object.entries(response.data.articleLanguages).map(([key, value]) => ({
+      //     value,
+      //     label: key,
+      //   })))
+      // Update available languages after fetching the article
+      const languages = responseData.languages; // Assuming the response includes the available languages
+      const languageOptions = languages.map((lang: string) => ({
+      value: lang.toLowerCase(),
+      label: lang,
+      }));
+      setAvailableTranslationLanguages(languageOptions);
+  
+    } catch (error) {
+      console.log(error);
+      // alert("Error fetching article. Please try again.");
+      alert(error)
+    } finally {
+      setIsLoading(false);
+    }
+  }, [setValue]);
+  */
+  
 
   const onLanguageChange = useCallback(async (translateArticleUrl: string) => {
     try {
@@ -189,12 +224,24 @@ const TranslationSection = () => {
             <div className="inline-flex items-center gap-x-2">
               <Info size={16} />
               <span className="text-zinc-700 text-xs">
-								Here will be instruction regarding translation.
-							</span>
+                Here will be instruction regarding translation.
+              </span>
             </div>
             <div className="flex gap-x-2">
-              <Button disabled={isLoading} type="button" variant="outline">Clear</Button>
-              <Button disabled={isLoading} variant="default" type="submit">Translate</Button>
+              <Button 
+                disabled={isLoading} 
+                type="button" 
+                variant="outline" 
+                onClick={() => { 
+                  console.log("Clear button clicked")
+                  setTexts([]) // Clear the texts state
+                  form.setValue('sourceArticleContent', '')
+                  form.setValue('translatedArticleContent', '')
+                }}
+              >
+                Clear
+              </Button>
+              <Button disabled={isLoading} variant="default" type="submit">Submit</Button>
               <Button disabled className="flex gap-x-2">Compare <ChevronRight size={16} /></Button>
             </div>
           </div>
@@ -216,7 +263,6 @@ const TranslationSection = () => {
 
             <FormField
               control={form.control}
-              disabled={availableTranslationLanguages.length === 0}
               name="targetArticleLanguage"
               render={({ field }) => (
                 <FormItem className="w-2/5 flex items-center gap-x-4">
@@ -224,26 +270,20 @@ const TranslationSection = () => {
                   <FormControl>
                     <Select
                       onValueChange={(value) => {
-                        field.onChange(value)
-                        onLanguageChange(value)
+                        field.onChange(value);
                       }}
                       defaultValue={field.value}
-                      disabled={field.disabled || isLoading}
+                      disabled={isLoading || availableTranslationLanguages.length === 0}
                     >
                       <SelectTrigger className="!mt-0">
                         <SelectValue placeholder="Language" />
                       </SelectTrigger>
                       <SelectContent>
-                        {
-                          availableTranslationLanguages.map(languageInfo => (
-                            <SelectItem
-                              value={languageInfo.value}
-                              key={languageInfo.label}
-                            >
-                              {languageInfo.label}
-                            </SelectItem>
-                          ))
-                        }
+                        {availableTranslationLanguages.map(language => (
+                          <SelectItem value={language.value} key={language.value}>
+                            {language.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -253,23 +293,11 @@ const TranslationSection = () => {
             />
           </div>
           <div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-1/3">Referenced Article</TableHead>
-                  <TableHead>Original Article</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {texts.map((text) => (
-                  <TableRow className={getColorClass(text.suggestionType)} >
-                    <TableCell className="font-medium">{text.reference}</TableCell>
-                    <TableCell>{text.editing}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-      
+            {texts.map((text, index) => (
+              <div key={index} className={getColorClass(text.suggestionType)}>
+                <p className="font-medium">{text.reference}</p>
+              </div>
+            ))}
           </div>
         
         </form>
@@ -277,5 +305,6 @@ const TranslationSection = () => {
     </section>
   )
 }
+
 
 export default TranslationSection

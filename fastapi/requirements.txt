@@ -1,3 +1,12 @@
 fastapi
 requests
 bs4
+pytest
+pytest-flask
+requests
+bs4
+deepl
+nltk
+deep_translator
+coverage
+uvicorn
