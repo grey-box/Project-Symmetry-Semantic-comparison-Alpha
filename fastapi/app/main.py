@@ -38,30 +38,6 @@ def get_wikipedia_url(title: str) -> str:
 
     return fullurl
 
-def get_wikipedia_url(title: str) -> str:
-    """Get the Wikipedia article URL for a given title using the Wikipedia API."""
-    api_url = 'https://en.wikipedia.org/w/api.php'
-    params = {
-        'action': 'query',
-        'format': 'json',
-        'titles': title,
-        'prop': 'info',
-        'inprop': 'url',
-    }
-    response = requests.get(api_url, params=params)
-    data = response.json()
-    pages = data.get('query', {}).get('pages', {})
-    page = next(iter(pages.values()), None)
-
-    if not page or 'missing' in page:
-        raise HTTPException(status_code=404, detail="Wikipedia article not found.")
-
-    fullurl = page.get('fullurl')
-    if not fullurl:
-        raise HTTPException(status_code=404, detail="Wikipedia article URL not found.")
-
-    return fullurl
-
 @app.get("/get_article", response_model=ArticleResponse)
 def get_article(url: str = Query(None), title: str = Query(None)):
     if not url and not title:
@@ -85,12 +61,13 @@ def get_article(url: str = Query(None), title: str = Query(None)):
 
     article_content = " ".join([para.get_text(strip=True) for para in paragraphs])
 
+    # extracts the available languages of the article 
     languages = []
     language_list = soup.find_all('li', class_='interlanguage-link')
     for lang_item in language_list:
-        lang = lang_item.find('a', title=True)
+        lang = lang_item.find('a')
         if lang:
-            languages.append(lang['title'])
+            languages.append(lang.text)
 
     return {"article": article_content, "languages": languages}
 
