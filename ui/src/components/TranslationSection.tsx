@@ -130,7 +130,6 @@ const TranslationSection = () => {
   };
   const [availableTranslationLanguages, setAvailableTranslationLanguages] = useState<SelectData<string>[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [articleContent, setArticleContent] = useState('');
   const form = useForm<TranslationFormType>({
     defaultValues: {
       sourceArticleUrl: '',
@@ -147,10 +146,9 @@ const TranslationSection = () => {
     setValue,
   } = form
 
-  /*const onSubmit = useCallback(async (data: TranslationFormType) => {
+  const onSubmit = useCallback(async (data: TranslationFormType) => {
     try {
       setIsLoading(true)
-      
       const response = await fetchArticle({
         translationTool,
         deepLApiKey: APIKey,
@@ -162,32 +160,13 @@ const TranslationSection = () => {
         Object.entries(response.data.articleLanguages).map(([key, value]) => ({
           value,
           label: key,
-        }))) 
-        
+        })))    
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
     }
-  }, [setValue, translationTool, APIKey])*/
-
-  const onSubmit = useCallback(async (data: { sourceArticleUrl: string }) => {
-    try {
-      setIsLoading(true)
-
-      const mockResponse = {
-        title: 'Pizza',
-        content:
-          'Pizza is a popular Italian dish made of flattened bread dough topped with tomatoes, cheese, and other ingredients, baked in an oven.',
-        url: 'https://en.wikipedia.org/wiki/Pizza',
-      }
-      setArticleContent(mockResponse.content)
-    } catch (error) {
-      console.error('Error fetching article:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
+  }, [setValue, translationTool, APIKey])
 
   const onLanguageChange = useCallback(async (translateArticleUrl: string) => {
     try {
@@ -289,20 +268,6 @@ const TranslationSection = () => {
                     <TableCell>{text.editing}</TableCell>
                   </TableRow>
                 ))}
-                {articleContent ? (
-                  <TableRow>
-                    <TableCell className="font-medium">{articleContent}</TableCell>
-                    <TableCell className="font-medium">
-                      Translation functionality is not implemented yet.
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  <TableRow>
-                    <TableCell className="font-medium">No article content yet.</TableCell>
-                    <TableCell className="font-medium">No translation available.</TableCell>
-                  </TableRow>
-                )}
-
               </TableBody>
             </Table>
       

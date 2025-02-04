@@ -5,9 +5,17 @@ from typing import Union
 import requests
 from pydantic import BaseModel
 from bs4 import BeautifulSoup
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class ArticleResponse(BaseModel):
     article: str
