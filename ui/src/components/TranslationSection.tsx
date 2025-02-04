@@ -160,7 +160,7 @@ const TranslationSection = () => {
         Object.entries(response.data.articleLanguages).map(([key, value]) => ({
           value,
           label: key,
-        })))
+        })))    
     } catch (error) {
       console.log(error)
     } finally {
@@ -193,7 +193,7 @@ const TranslationSection = () => {
 							</span>
             </div>
             <div className="flex gap-x-2">
-              <Button disabled={isLoading} type="button" variant="outline">Clear</Button>
+              <Button disabled={isLoading} type="button" variant="outline">Clear Search</Button>
               <Button disabled={isLoading} variant="default" type="submit">Translate</Button>
               <Button disabled className="flex gap-x-2">Compare <ChevronRight size={16} /></Button>
             </div>
@@ -205,10 +205,11 @@ const TranslationSection = () => {
               name="sourceArticleUrl"
               render={({ field }) => (
                 <FormItem className="w-2/5 flex items-center gap-x-4">
-                  <FormLabel className="shrink-0">Source Article URL</FormLabel>
+                  <FormLabel className="shrink-0">Search Article</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter a URL" className="!mt-0" {...field} />
+                    <Input placeholder="Enter Article Title or URL" className="!mt-0" {...field} />
                   </FormControl>
+                  <Button disabled={isLoading} variant="default" type="submit">Select</Button> 
                   <FormMessage />
                 </FormItem>
               )}
@@ -220,7 +221,7 @@ const TranslationSection = () => {
               name="targetArticleLanguage"
               render={({ field }) => (
                 <FormItem className="w-2/5 flex items-center gap-x-4">
-                  <FormLabel className="shrink-0">Target Article Language</FormLabel>
+                  <FormLabel className="shrink-0">Translation Language</FormLabel>
                   <FormControl>
                     <Select
                       onValueChange={(value) => {
@@ -256,8 +257,8 @@ const TranslationSection = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-1/3">Referenced Article</TableHead>
-                  <TableHead>Original Article</TableHead>
+                  <TableHead className="w-1/3">Searched Article</TableHead>
+                  <TableHead>Translated Article Comparison </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

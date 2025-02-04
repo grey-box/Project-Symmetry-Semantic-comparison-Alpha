@@ -10,6 +10,14 @@ from bs4 import BeautifulSoup
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class ArticleResponse(BaseModel):
     article: str
     languages: List[str]
