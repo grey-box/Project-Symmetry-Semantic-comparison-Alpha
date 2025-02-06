@@ -66,7 +66,7 @@ This guide will help you set up a Python virtual environment and install the req
    pip install pyinstaller
    ```
 
-V. **Use Pyinstaller to Build Flask Executable**
+V. **Use Pyinstaller to Build FastAPI Executable**
 
 ```
 cd app
