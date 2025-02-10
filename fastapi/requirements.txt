@@ -1,11 +1,4 @@
 fastapi
 requests
 bs4
-flask
-flask_cors
-pytest
-pytest-flask
-deepl
-nltk
-deep_translator
-coverage
+

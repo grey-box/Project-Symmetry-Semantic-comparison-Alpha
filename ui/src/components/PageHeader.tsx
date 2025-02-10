@@ -16,7 +16,7 @@ const PageHeader = () => {
             settingsPageMatch ?
               'Settings'
               : homePageMatch ?
-                'Hi there, Alamin'
+                'Hi there, Suraj'
                 : ''
           }
         </h1>
