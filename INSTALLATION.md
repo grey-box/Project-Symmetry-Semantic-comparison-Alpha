@@ -1,4 +1,5 @@
-# Project Symmetry Installation Guide
+# Project Symmetry Installation Guide - FastAPI
+
 
 ## UI Installation
 
@@ -12,6 +13,7 @@ Before starting the installation, make sure you have the following tools install
 - **Python**: Version 3.8 - 3.11 (NLP library requirements prevent 3.12)
 - **npm**: Version 8.19.4
 - **Electron**: Version v26.2.4
+
 
 
 ### Installation Steps
@@ -40,7 +42,8 @@ This guide will help you set up a Python virtual environment and install the req
    If you haven't already created a virtual environment, you can do so by running the following command:
    
    ```
-   cd ../api
+
+   cd ../fastapi
    python -m venv venv
    ```
    2. Activate the Virtual Environment
@@ -66,11 +69,12 @@ This guide will help you set up a Python virtual environment and install the req
    pip install pyinstaller
    ```
 
-V. **Use Pyinstaller to Build Flask Executable**
+
+V. **Use Pyinstaller to Build FastAPI Executable**
 
 ```
-cd flaskr
-pyinstaller -F pyapp.py
+cd fastapi/app
+pyinstaller -F main.py
 ```
 
 VI. **Navigate to ui Folder and Run App**

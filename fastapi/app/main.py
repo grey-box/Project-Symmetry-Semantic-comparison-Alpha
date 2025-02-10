@@ -1,7 +1,6 @@
 #!/bin/bash
 from fastapi import FastAPI, HTTPException, Query, Request
 import uvicorn
-from uvicorn import run
 from typing import Union, List
 import requests
 from pydantic import BaseModel
@@ -56,6 +55,7 @@ def get_wikipedia_url(title: str) -> str:
     fullurl = page.get('fullurl')
     if not fullurl:
         logging.error('Wikipedia article URL not found.')
+
         raise HTTPException(status_code=404, detail="Wikipedia article URL not found.")
 
     return fullurl
@@ -89,7 +89,10 @@ def get_wikipedia_url(title: str) -> str:
 
 @app.get("/get_article", response_model=ArticleResponse)
 def get_article(url: str = Query(None), title: str = Query(None)):
+
     print(f'[INFO] Calling get article endpoint')
+    logging.info("Calling get article endpoint")
+
     if not url and not title:
         logging.info("Either 'url' or 'title' must be provided.")
         raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
@@ -103,6 +106,7 @@ def get_article(url: str = Query(None), title: str = Query(None)):
         page.raise_for_status()  # Check if the request was successful
     except requests.exceptions.RequestException as e:
         logging.error(f'Request error: {e}')
+
         raise HTTPException(status_code=400, detail=f"Request error: {e}")
 
     soup = BeautifulSoup(page.content, "html.parser")
@@ -200,6 +204,7 @@ def extract_article_content(url: str):
 
     return {"article": article_content, "languages": languages}
 
+
 @app.post("/get_article", response_model=ArticleResponse)
 async def get_article(request: Request):
     data = await request.json()
@@ -231,8 +236,10 @@ class Comparator(BaseModel):
     target: str
 
 
+
 @app.post("/api/v1/article/original/")
 def get_orginal_article_by_url(url: Url):
+    logging.info("Processing original article by URL")
     return 'hello'
 
 if __name__ == '__main__':

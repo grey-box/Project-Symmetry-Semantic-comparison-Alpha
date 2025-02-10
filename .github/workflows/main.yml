@@ -1,6 +1,9 @@
 name: Flask test suite
 run-name: ${{ github.actor }} is building symmetry 🚀
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - master_branch
 jobs:
   Test_API_endpoints:
     runs-on: windows-latest
@@ -16,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          cd api
+          cd fastapi
           pip install -r requirements.txt
           python -m nltk.downloader punkt
 
@@ -27,6 +30,6 @@ jobs:
         run: pip install pyinstaller
       
       - name: Build with PyInstaller
-        run: pyinstaller -F api/flaskr/pyapp.py
+        run: pyinstaller -F fastapi/app/main.py
 
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
