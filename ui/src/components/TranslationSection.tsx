@@ -128,6 +128,9 @@ const TranslationSection = () => {
         return '';
     }
   };
+
+  const [articleContent, setArticleContent] = useState<string | null>(null)
+
   const [availableTranslationLanguages, setAvailableTranslationLanguages] = useState<SelectData<string>[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<TranslationFormType>({
@@ -149,18 +152,24 @@ const TranslationSection = () => {
   const onSubmit = useCallback(async (data: TranslationFormType) => {
     try {
       setIsLoading(true)
-      const response = await fetchArticle({
-        translationTool,
-        deepLApiKey: APIKey,
-        sourceArticleUrl: data.sourceArticleUrl,
-        targetLanguage: '',
+
+      const response = await fetch("http://127.0.0.1:8000/get_article", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({url: data.sourceArticleUrl}),
       })
-      setValue('sourceArticleContent', response.data.sourceArticle.text)
+
+      if (!response.ok) throw new Error("Failed to fetch")
+
+        const backendData = await response.json();
+        console.log("fetched article: ", backendData.article)
+      
+      // update with backend data
+      setArticleContent(backendData.article)
       setAvailableTranslationLanguages(
-        Object.entries(response.data.articleLanguages).map(([key, value]) => ({
-          value,
-          label: key,
-        })))    
+        backendData.languages.map((lang: string) => ({value: lang, label: lang }))
+      )
+
     } catch (error) {
       console.log(error)
     } finally {
@@ -262,12 +271,12 @@ const TranslationSection = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {texts.map((text) => (
-                  <TableRow className={getColorClass(text.suggestionType)} >
-                    <TableCell className="font-medium">{text.reference}</TableCell>
-                    <TableCell>{text.editing}</TableCell>
+                  <TableRow>
+                    <TableCell className="font-medium">{articleContent ? articleContent : "No article yet"}</TableCell>
+                    <TableCell>
+                      
+                    </TableCell>
                   </TableRow>
-                ))}
               </TableBody>
             </Table>
       

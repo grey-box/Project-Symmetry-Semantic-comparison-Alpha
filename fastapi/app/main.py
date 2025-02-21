@@ -1,12 +1,10 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from uvicorn import run
-from typing import Union, List
-import uvicorn
-from typing import Union
 import requests
 from pydantic import BaseModel
 from bs4 import BeautifulSoup
+from typing import List, Optional
 
 app = FastAPI()
 
@@ -17,6 +15,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# to handle input from frontend
+class ArticleRequest(BaseModel):
+    url: Optional[str] = None
+    title: Optional[str] = None
 
 class ArticleResponse(BaseModel):
     article: str
@@ -46,8 +49,11 @@ def get_wikipedia_url(title: str) -> str:
 
     return fullurl
 
-@app.get("/get_article", response_model=ArticleResponse)
-def get_article(url: str = Query(None), title: str = Query(None)):
+@app.post("/get_article", response_model=ArticleResponse)
+def get_article(request: ArticleRequest):
+    url = request.url
+    title = request.title
+
     if not url and not title:
         raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
 
@@ -89,7 +95,7 @@ class Comparator(BaseModel):
 
 @app.post("/api/v1/article/original/")
 def get_orginal_article_by_url(url: Url):
-    return 'hello'
+    return {"message": "hello"}
 
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)
